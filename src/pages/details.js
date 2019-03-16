@@ -9,6 +9,15 @@ export default () => (
         <Navbar />
         <h1>Detail page</h1>
         <p>
+			We strongly believe in the value of diversity, and these events
+			aim to kickstart and support women in tech. The workshop is aimed
+			at complete beginners and no previous knowledge about programming
+			is required to participate. It will be in the form of a tutorial
+			which you will work on in small groups guided by a mentor, so you
+			will be able to learn at your own pace and have all your questions
+			answered.
+		</p>
+        <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur
             viverra dolor eu vulputate. Pellentesque habitant morbi tristique senectus
             et netus et malesuada fames ac turpis egestas. Quisque vulputate dui nec

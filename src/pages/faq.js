@@ -7,7 +7,7 @@ export default () => (
     <div>
         <Helmet />
         <Navbar />
-        <p>FAQ page</p>
+        <h1>FAQ page</h1>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur
             viverra dolor eu vulputate. Pellentesque habitant morbi tristique senectus

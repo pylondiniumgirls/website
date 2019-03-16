@@ -37,6 +37,7 @@ const Navbar = () => {
             <span aria-hidden="true" />
           </a>
         </div>
+
         <div id="navbarMenu" className="navbar-menu" ref={navbar}>
           <div className="navbar-start">
             <span className="navbar-item">
