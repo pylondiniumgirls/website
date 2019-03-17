@@ -34,7 +34,7 @@ export default () => (
       <h3 className="title is-3 has-text-centered">Sponsors</h3>
       <div className="columns is-centered">
         <div className="column is-narrow">
-            <img src={bloomberg} alt="bloomberg-logo"/>
+          <img src={bloomberg} alt="bloomberg-logo" />
         </div>
       </div>
     </div>
@@ -47,7 +47,13 @@ export default () => (
           about anything in particular, you can contact in our{" "}
           <a href="mailto: pylondiniumgirls@gmail.com">email</a> or you can
           leave us a message in our{" "}
-          <a href="https://twitter.com/pylondinium?lang=en">twitter account</a>
+          <a
+            href="https://twitter.com/pylondinium?lang=en"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            twitter account
+          </a>
         </div>
       </div>
     </section>

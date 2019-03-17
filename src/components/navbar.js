@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "gatsby";
 
 import "./style.scss";
-import gatsbyLogo from "../images/gatsby-icon.png";
 
 const Navbar = () => {
   const navbar = React.createRef();
@@ -23,7 +22,7 @@ const Navbar = () => {
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src={gatsbyLogo} alt="Logo-1" />
+            <img src="icons/favicon.png" alt="favicon" />
           </a>
           <a
             role="button"
@@ -61,10 +60,22 @@ const Navbar = () => {
               <Link to="/people">People</Link>
             </span>
             <span className="navbar-item">
-              <a href="https://twitter.com/pylondinium?lang=en">Twitter</a>
+              <a
+                href="https://twitter.com/pylondinium?lang=en"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>
             </span>
             <span className="navbar-item">
-              <a href="https://pylondinium.org/">Pylondinium</a>
+              <a
+                href="https://pylondinium.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pylondinium
+              </a>
             </span>
           </div>
         </div>

@@ -10,7 +10,6 @@ export default () => (
 					siteMetadata {
 						title
 						author
-						imageUrl
 						description
 						keywords
 					}
@@ -25,6 +24,7 @@ export default () => (
 				/>
 				<meta name="description" content={data.site.siteMetadata.description} />
 				<meta name="keywords" content={data.site.siteMetadata.keywords} />
+				<link rel="shortcut icon" type="image/png" href="/icons/favicon.png" />
 				<title>{data.site.siteMetadata.title}</title>
 				<html lang="en" className="has-navbar-fixed-top"/>
 				{/* Google / Search Engine Meta Tags */}
@@ -33,7 +33,6 @@ export default () => (
 					itemprop="description"
 					content={data.site.siteMetadata.description}
 				/>
-				<meta itemprop="image" content={data.site.siteMetadata.imageUrl} /> />
 			</Helmet>
 		)}
 	/>

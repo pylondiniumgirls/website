@@ -20,19 +20,6 @@ module.exports = {
 		},
 		'gatsby-transformer-sharp',
 		'gatsby-plugin-sharp',
-		{
-			resolve: `gatsby-plugin-manifest`,
-			options: {
-				name: 'Makefolio',
-				short_name: 'Makefolio',
-				start_url: '/',
-				background_color: '#2980b9',
-				theme_color: '#2980b9',
-				display: 'standalone',
-				icon: 'src/images/gatsby-icon.png',
-				orientation: 'portrait'
-			}
-		},
 		`gatsby-plugin-sass`,
 		{
 			resolve: `gatsby-plugin-google-analytics`,

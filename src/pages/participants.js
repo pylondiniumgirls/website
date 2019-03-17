@@ -20,9 +20,13 @@ export default () => (
           <div className="buttons is-centered">
             <a className="button is-medium is-link">
               <span className="icon">
-                <FaTwitter size="fa"/>
+                <FaTwitter size="fa" />
               </span>
-              <a href="https://twitter.com/pylondinium?lang=en">
+              <a
+                href="https://twitter.com/pylondinium?lang=en"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Keep connected
               </a>
             </a>
