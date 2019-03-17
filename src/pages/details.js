@@ -3,16 +3,16 @@ import React from "react";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
+import locationMap from "../images/locationMap.png";
+
 export default () => (
   <div>
     <Helmet />
-    <section className="section">
-        <Navbar />
-    </section>
-    <h1 className="title has-text-centered">Details</h1>
+    <Navbar />
     <section className="section">
       <div className="container">
-        <div className="columns">
+        <h1 className="title has-text-centered">Details</h1>
+        <div className="columns is-vcentered">
           <div className="column is-half">
             <div className="content">
               <p>
@@ -45,7 +45,7 @@ export default () => (
           </div>
           <div className="column is-half">
             <div className="content">
-              <h3 className="subtitle is-5 has-text-centered">Agenda</h3>
+              <h4 className="has-text-centered">Agenda</h4>
               <p>
                 <strong>Friday 13th June 2019</strong>
               </p>
@@ -67,8 +67,11 @@ export default () => (
               <p>
                 <strong>18:00</strong> Event close
               </p>
-              <h3 className="subtitle is-5 has-text-centered">Location</h3>
+              <h4 className="has-text-centered">Location</h4>
               <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
+              <figure className="image">
+                <img src={locationMap} alt="location-map" />
+              </figure>
             </div>
           </div>
         </div>
