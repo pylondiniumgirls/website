@@ -9,7 +9,7 @@ export default () => (
     <Helmet />
     <Navbar />
     <section className="section">
-      <h1 className="title has-text-centered">Mentor inscription</h1>
+      <h1 className="title has-text-centered">Participant inscription</h1>
     </section>
     <section className="hero is-primary is-bold is-large">
       <div class="hero-body">

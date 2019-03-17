@@ -43,9 +43,17 @@ const Navbar = () => {
             <span className="navbar-item">
               <Link to="/details">Details</Link>
             </span>
-            <span className="navbar-item">
-              <Link to="/inscription">Inscription</Link>
-            </span>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">Inscription</a>
+              <div class="navbar-dropdown">
+                <span className="navbar-item">
+                  <Link to="/participants">Participants</Link>
+                </span>
+                <span className="navbar-item">
+                  <Link to="/mentor">Mentor</Link>
+                </span>
+              </div>
+            </div>
             <span className="navbar-item">
               <Link to="/faq">FAQ</Link>
             </span>
