@@ -4,57 +4,83 @@ import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
 export default () => (
-    <div>
-        <Helmet />
-        <Navbar />
-        <h1>FAQ page</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur
-            viverra dolor eu vulputate. Pellentesque habitant morbi tristique senectus
-            et netus et malesuada fames ac turpis egestas. Quisque vulputate dui nec
-            eros facilisis sollicitudin. Nullam volutpat viverra lectus, fermentum
-            porta odio rhoncus sit amet. Praesent finibus diam dui, eu sagittis diam
-            congue et. Aliquam ut neque commodo, scelerisque justo in, hendrerit sem.
-            Proin felis ex, vulputate ut nibh eget, malesuada iaculis est. Quisque
-            fringilla, elit viverra hendrerit finibus, lorem urna facilisis eros, quis
-            vestibulum ligula risus non neque. Morbi ac ultricies felis, imperdiet
-            malesuada nulla. Donec ullamcorper at ante eu blandit.
-        </p>
-        <p>
-            Sed nisi dui, tincidunt viverra tristique a, hendrerit sed nulla. Fusce et
-            felis quis orci egestas interdum ut quis magna. Integer tincidunt turpis
-            velit. Morbi tempus tempor ex, ut viverra eros hendrerit ac. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Donec sed lorem tortor.
-            Maecenas finibus purus a nibh mollis, mollis maximus sapien imperdiet.
-            Curabitur quis gravida odio, et elementum est. Donec dolor urna, maximus
-            id ipsum aliquam, pulvinar ultrices nisl. Phasellus consequat mi id
-            ultricies semper. Pellentesque ante neque, aliquet at dolor vitae,
-            efficitur finibus odio. Suspendisse ac luctus augue. Donec id imperdiet
-            dui. Quisque vitae auctor metus. Vivamus rhoncus viverra nisi, ac accumsan
-            nunc ullamcorper non. Nullam pretium tincidunt posuere.
-        </p>
-        <p>
-            Nunc metus neque, maximus in gravida vel, vulputate vel augue. Sed
-            lobortis, dolor at mollis dictum, magna risus aliquet neque, sit amet
-            maximus eros ex id velit. Suspendisse feugiat pulvinar magna, vitae
-            eleifend ex ultrices id. Praesent id nibh interdum, auctor urna sit amet,
-            cursus quam. Mauris ante odio, fermentum in ultrices a, congue a erat.
-            Pellentesque in est libero. Morbi non leo ac metus elementum maximus at
-            eget ipsum. Suspendisse potenti. Nunc sagittis, turpis nec ultrices
-            finibus, leo eros facilisis est, at mollis mi ligula eget mauris. Nulla
-            consectetur iaculis pharetra. Phasellus eget elit vel sapien lobortis
-            tempus ac non ex. Praesent malesuada non mauris id placerat. Morbi sed
-            venenatis quam, vel posuere nulla.
-        </p>
-        <p>
-            Donec posuere luctus auctor. Etiam mattis ut purus et vehicula. Aenean id
-            ullamcorper urna, tincidunt malesuada nunc. Suspendisse ornare nunc dolor,
-            quis accumsan erat condimentum sed. Vivamus sagittis luctus tellus ut
-            rhoncus. Maecenas accumsan magna massa, a gravida nunc consectetur in.
-            Mauris quis nunc eu nisi imperdiet iaculis. Sed a venenatis diam. Ut eget
-            quam fermentum, gravida odio et, consequat nisi. Cras vitae elit a sem
-            luctus maximus ut in neque. Aliquam rhoncus consequat urna, ac euismod leo
-            convallis at. Aliquam eleifend enim non eleifend semper.
-        </p>
-    </div>
+  <div>
+    <Helmet />
+    <Navbar />
+    <section className="section">
+      <h1 className="title has-text-centered">Frequently Asked Questions</h1>
+    </section>
+    <section className="section">
+      <div className="columns">
+        <div className="column is-one-third is-offset-2">
+          <div className="column">
+            <h5 className="title is-5">
+              Do I need to have any previous knowledge?
+            </h5>
+            <p>
+              The workshop is aimed at complete beginners and no previous
+              knowledge about programming or building website is required to
+              particapte. However, if you do have some basic previous knowledge
+              (for example, you have done some previous HTML or CSS in the
+              past), we encourage you to apply because we are sure you will
+              still have a great time learning about a lot of other things such
+              as Python and Django.
+            </p>
+          </div>
+          <div className="column">
+            <h5 className="title is-5">
+              Is there any restriction on who can apply to participate in the
+              workshop?
+            </h5>
+            <p>
+              Everybody is welcome to apply. We are trans-inclusive and
+              encourage applications from all women and non-binary people.
+              However, applications from people belonging to minorities and
+              underrepresented groups in technology will have priority.
+            </p>
+          </div>
+          <div className="column">
+            <h5 className="title is-5">Is food included?</h5>
+            <p>
+              Yes, food is included and, as the workshop, it will be free. All
+              of this is possible thanks to our wonderful sponsor, Bloomberg,
+              who will provide lunch and drinks and snacks during the day.
+            </p>
+          </div>
+        </div>
+        <div className="column is-one-third">
+          <div className="column">
+            <h5 className="title is-5">
+              Will computers be provided during the workshop?
+            </h5>
+            <p>
+              Unfortunately, we cannot lend you any computers; therefore, you
+              will need to bring your own laptop with you. Bringing your own
+              laptop will also enhance your experience, because you will be able
+              to take home all the work you did during the day, show it to your
+              family and friends and continue working on it if you wish so.
+            </p>
+          </div>
+          <div className="column">
+            <h5 className="title is-5">
+              Then, if I need to bring my laptop, do I need any particular
+              software preinstalled?
+            </h5>
+            <p>
+              In order to be able to follow the tutorial of the workshop, you
+              will need to have installed Git, a code editor, Python and Django
+              in your computer. For a better experience during the workshop, we
+              encourage you to have everything installed in advance. As we know
+              that this is an arduous task for somebody new to programming, we
+              will try to assign you a mentor that will help you install
+              everything you need in the days before the workshop. However, if
+              you don't have everything ready at your arrival, you will also
+              have the opportunity to install everything needed in the beginning
+              of the morning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 );
