@@ -4,66 +4,75 @@ import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
 export default () => (
-    <div>
-        <Helmet />
+  <div>
+    <Helmet />
+    <section className="section">
         <Navbar />
-        <h1>Detail page</h1>
-        <p>
-			We strongly believe in the value of diversity, and these events
-			aim to kickstart and support women in tech. The workshop is aimed
-			at complete beginners and no previous knowledge about programming
-			is required to participate. It will be in the form of a tutorial
-			which you will work on in small groups guided by a mentor, so you
-			will be able to learn at your own pace and have all your questions
-			answered.
-		</p>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur
-            viverra dolor eu vulputate. Pellentesque habitant morbi tristique senectus
-            et netus et malesuada fames ac turpis egestas. Quisque vulputate dui nec
-            eros facilisis sollicitudin. Nullam volutpat viverra lectus, fermentum
-            porta odio rhoncus sit amet. Praesent finibus diam dui, eu sagittis diam
-            congue et. Aliquam ut neque commodo, scelerisque justo in, hendrerit sem.
-            Proin felis ex, vulputate ut nibh eget, malesuada iaculis est. Quisque
-            fringilla, elit viverra hendrerit finibus, lorem urna facilisis eros, quis
-            vestibulum ligula risus non neque. Morbi ac ultricies felis, imperdiet
-            malesuada nulla. Donec ullamcorper at ante eu blandit.
-        </p>
-        <p>
-            Sed nisi dui, tincidunt viverra tristique a, hendrerit sed nulla. Fusce et
-            felis quis orci egestas interdum ut quis magna. Integer tincidunt turpis
-            velit. Morbi tempus tempor ex, ut viverra eros hendrerit ac. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Donec sed lorem tortor.
-            Maecenas finibus purus a nibh mollis, mollis maximus sapien imperdiet.
-            Curabitur quis gravida odio, et elementum est. Donec dolor urna, maximus
-            id ipsum aliquam, pulvinar ultrices nisl. Phasellus consequat mi id
-            ultricies semper. Pellentesque ante neque, aliquet at dolor vitae,
-            efficitur finibus odio. Suspendisse ac luctus augue. Donec id imperdiet
-            dui. Quisque vitae auctor metus. Vivamus rhoncus viverra nisi, ac accumsan
-            nunc ullamcorper non. Nullam pretium tincidunt posuere.
-        </p>
-        <p>
-            Nunc metus neque, maximus in gravida vel, vulputate vel augue. Sed
-            lobortis, dolor at mollis dictum, magna risus aliquet neque, sit amet
-            maximus eros ex id velit. Suspendisse feugiat pulvinar magna, vitae
-            eleifend ex ultrices id. Praesent id nibh interdum, auctor urna sit amet,
-            cursus quam. Mauris ante odio, fermentum in ultrices a, congue a erat.
-            Pellentesque in est libero. Morbi non leo ac metus elementum maximus at
-            eget ipsum. Suspendisse potenti. Nunc sagittis, turpis nec ultrices
-            finibus, leo eros facilisis est, at mollis mi ligula eget mauris. Nulla
-            consectetur iaculis pharetra. Phasellus eget elit vel sapien lobortis
-            tempus ac non ex. Praesent malesuada non mauris id placerat. Morbi sed
-            venenatis quam, vel posuere nulla.
-        </p>
-        <p>
-            Donec posuere luctus auctor. Etiam mattis ut purus et vehicula. Aenean id
-            ullamcorper urna, tincidunt malesuada nunc. Suspendisse ornare nunc dolor,
-            quis accumsan erat condimentum sed. Vivamus sagittis luctus tellus ut
-            rhoncus. Maecenas accumsan magna massa, a gravida nunc consectetur in.
-            Mauris quis nunc eu nisi imperdiet iaculis. Sed a venenatis diam. Ut eget
-            quam fermentum, gravida odio et, consequat nisi. Cras vitae elit a sem
-            luctus maximus ut in neque. Aliquam rhoncus consequat urna, ac euismod leo
-            convallis at. Aliquam eleifend enim non eleifend semper.
-        </p>
-    </div>
+    </section>
+    <h1 className="title has-text-centered">Details</h1>
+    <section className="section">
+      <div className="container">
+        <div className="columns">
+          <div className="column is-half">
+            <div className="content">
+              <p>
+                We strongly believe in the value of diversity, and these events
+                aim to kickstart and support women in tech. The workshop is
+                aimed at <strong>complete beginners</strong> and no previous
+                knowledge about programming is required to participate. It will
+                be in the form of a tutorial which you will work on in small
+                groups guided by a mentor, so you will be able to learn at your
+                own pace and have all your questions answered.
+              </p>
+              <p>
+                The event is <strong>totally free</strong>. As a workshop
+                attendee you will:
+                <ul>
+                  <li>
+                    A one-full day <strong>intensive workshop</strong> where you
+                    will learn how to build your first website with Django.
+                  </li>
+                  <li>Lunch, snacks and drinks during the day.</li>
+                </ul>
+              </p>
+              <p>
+                We are trans-inclusive and encourage applications from all women
+                and non-binary people. Please note that everyone is welcome to
+                apply and applications from people belonging to minorities and
+                underrepresented groups in technololgy will have priority.
+              </p>
+            </div>
+          </div>
+          <div className="column is-half">
+            <div className="content">
+              <h3 className="subtitle is-5 has-text-centered">Agenda</h3>
+              <p>
+                <strong>Friday 13th June 2019</strong>
+              </p>
+              <p>
+                <strong>8:30</strong> Guest arrival
+              </p>
+              <p>
+                <strong>9:00</strong> Welcome and introductions
+              </p>
+              <p>
+                <strong>9:30</strong> Workshop
+              </p>
+              <p>
+                <strong>13:00</strong> Lunch and networking
+              </p>
+              <p>
+                <strong>14:30</strong> Workshop continues
+              </p>
+              <p>
+                <strong>18:00</strong> Event close
+              </p>
+              <h3 className="subtitle is-5 has-text-centered">Location</h3>
+              <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 );
