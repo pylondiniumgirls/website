@@ -13,6 +13,9 @@ export default () => (
     <section className="section">
       <div className="container">
         <div className="columns is-centered">
+          <div className="column is-one-quarter is-hidden-touch">
+            <img className="centered" src="icons/pylondinium_19.png" alt="pylondinium-logo" />
+          </div>
           <div className="column is-half">
             <div className="content">
               Would you like to learn how to build websites, but don't know
@@ -35,6 +38,12 @@ export default () => (
                 Mentor
               </Link>
             </div>
+          </div>
+          <div className="column is-one-quarter">
+            <img className="centered" src="icons/workshop-logo.png" alt="workshop-logo" />
+          </div>
+          <div className="column is-one-quarter is-hidden-desktop">
+            <img className="centered" src="icons/pylondinium_19.png" alt="pylondinium-logo" />
           </div>
         </div>
       </div>
