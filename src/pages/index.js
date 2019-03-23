@@ -31,7 +31,7 @@ export default () => (
               HTML and CSS.
             </div>
             <div className="buttons is-centered">
-              <Link className="button is-medium is-link" to="/inscription">
+              <Link className="button is-medium is-link" to="/participants">
                 Participant
               </Link>
               <Link className="button is-medium is-link" to="/mentor">

@@ -4,7 +4,64 @@
 // Importing Bulma from node_modules
 @import '~bulma/bulma.sass';
 
+html {
+    background-color: $background-color;
+}
+
+body {
+    color: $primary-color;
+}
+
+strong {
+    color: $primary-color;
+}
+
+a {
+    color: $link-color;
+
+    &:hover {
+        color: $secondary-color;
+    }
+}
+
+.navbar {
+    background-color: $background-color;
+}
+
+.navbar-link {
+    color: $link-color;
+
+    &:hover {
+        color: $secondary-color;
+    }
+
+    &:not(.is-arrowless)::after {
+        border-color: $link-color;
+    }
+}
+
+.hero.is-primary.is-bold {
+    display: flex;
+    background: linear-gradient(to right, lighten($primary-color, 10), lighten($primary-color, 20));
+}
+
+.button.is-link {
+    background-color: $primary-color;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+
 img.centered {
     display: block;
     margin: 0 auto;
+}
+
+.title {
+    color: darken($primary-color, 10);
+}
+
+.subtitle.is-4 {
+    color: darken($primary-color, 10);
 }

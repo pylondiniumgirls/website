@@ -45,7 +45,7 @@ export default () => (
           </div>
           <div className="column is-half">
             <div className="content">
-              <h4 className="has-text-centered">Agenda</h4>
+              <h4 className="subtitle is-4 has-text-centered">Agenda</h4>
               <p>
                 <strong>Friday 13th June 2019</strong>
               </p>
@@ -67,7 +67,7 @@ export default () => (
               <p>
                 <strong>18:00</strong> Event close
               </p>
-              <h4 className="has-text-centered">Location</h4>
+              <h4 className="subtitle is-4 has-text-centered">Location</h4>
               <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
               <figure className="image">
                 <img src={locationMap} alt="location-map" />

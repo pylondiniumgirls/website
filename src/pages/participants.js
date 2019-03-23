@@ -11,14 +11,14 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Participant inscription</h1>
     </section>
-    <section className="hero is-primary is-bold is-large">
+    <section className="hero is-primary is-bold is-medium">
       <div class="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
             We are sorry but the inscription is not open yet!
           </h1>
           <div className="buttons is-centered">
-            <a className="button is-medium is-link">
+            <a className="button is-medium is-link is-in-hero">
               <span className="icon">
                 <FaTwitter size="fa" />
               </span>

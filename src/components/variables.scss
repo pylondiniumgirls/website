@@ -1,4 +1,6 @@
 // VARIABLES
 
-$primary-color: #93B7BF;
-$secondary-color: #025E73;
+$background-color: lighten(#FFBAA5, 15);
+$primary-color: #025E73;
+$secondary-color: #93B7BF;
+$link-color: darken($secondary-color, 25);
