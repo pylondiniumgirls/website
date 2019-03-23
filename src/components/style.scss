@@ -65,3 +65,15 @@ img.centered {
 .subtitle.is-4 {
     color: darken($primary-color, 10);
 }
+
+.label {
+    color: $primary-color;
+}
+
+.checkbox:hover {
+    color: $primary-color;
+}
+
+.radio:hover {
+    color: $primary-color;
+}
