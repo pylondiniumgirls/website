@@ -3,8 +3,6 @@ import React from "react";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-import locationMap from "../images/locationMap.png";
-
 export default () => (
   <div>
     <Helmet />
@@ -27,14 +25,14 @@ export default () => (
               <p>
                 The event is <strong>totally free</strong>. As a workshop
                 attendee you will:
-                <ul>
-                  <li>
-                    A one-full day <strong>intensive workshop</strong> where you
-                    will learn how to build your first website with Django.
-                  </li>
-                  <li>Lunch, snacks and drinks during the day.</li>
-                </ul>
               </p>
+              <ul>
+                <li>
+                  A one-full day <strong>intensive workshop</strong> where you
+                  will learn how to build your first website with Django.
+                </li>
+                <li>Lunch, snacks and drinks during the day.</li>
+              </ul>
               <p>
                 We are trans-inclusive and encourage applications from all women
                 and non-binary people. Please note that everyone is welcome to
@@ -70,7 +68,7 @@ export default () => (
               <h4 className="subtitle is-4 has-text-centered">Location</h4>
               <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
               <figure className="image">
-                <img src={locationMap} alt="location-map" />
+                <img src="/images/locationMap.png" alt="location-map" />
               </figure>
             </div>
           </div>

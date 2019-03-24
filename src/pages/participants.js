@@ -12,13 +12,13 @@ export default () => (
       <h1 className="title has-text-centered">Participant inscription</h1>
     </section>
     <section className="hero is-primary is-bold is-medium">
-      <div class="hero-body">
+      <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
             We are sorry but the inscription is not open yet!
           </h1>
           <div className="buttons is-centered">
-            <a className="button is-medium is-link is-in-hero">
+            <div className="button is-medium is-link is-in-hero">
               <span className="icon">
                 <FaTwitter size="fa" />
               </span>
@@ -29,13 +29,13 @@ export default () => (
               >
                 Keep connected
               </a>
-            </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
-      <div class="hero-body">
+      <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The inscription is open!</h1>
         </div>
@@ -190,9 +190,9 @@ export default () => (
               </label>
             </div>
           </div>
-          <div class="field">
-            <div class="control">
-              <button class="button is-link">Submit application</button>
+          <div className="field">
+            <div className="control">
+              <button className="button is-link">Submit application</button>
             </div>
           </div>
         </div>

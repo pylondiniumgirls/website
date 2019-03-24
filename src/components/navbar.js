@@ -24,7 +24,7 @@ const Navbar = () => {
           <a className="navbar-item" href="/">
             <img src="icons/favicon.png" alt="favicon" />
           </a>
-          <a
+          <div
             role="button"
             className="navbar-burger burger"
             aria-label="menu"
@@ -34,7 +34,7 @@ const Navbar = () => {
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
-          </a>
+          </div>
         </div>
 
         <div id="navbarMenu" className="navbar-menu" ref={navbar}>
@@ -43,8 +43,8 @@ const Navbar = () => {
               <Link to="/details">Details</Link>
             </span>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">Inscription</a>
-              <div class="navbar-dropdown">
+              <div className="navbar-link">Inscription</div>
+              <div className="navbar-dropdown">
                 <span className="navbar-item">
                   <Link to="/participants">Participants</Link>
                 </span>
