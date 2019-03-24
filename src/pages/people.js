@@ -3,9 +3,6 @@ import React from "react";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-import ana from "../images/ana-picture.jpg";
-import bloomberg from "../images/bloomberg-logo.png";
-
 export default () => (
   <div>
     <Helmet />
@@ -22,7 +19,7 @@ export default () => (
           <div className="columns is-centered">
             <div className="column is-narrow">
               <figure className="image is-128x128">
-                <img className="is-rounded" src={ana} alt="ana" />
+                <img className="is-rounded" src="/images/ana-picture.jpg" alt="ana" />
                 <div className="content has-text-centered">Ana Lopez</div>
               </figure>
             </div>
@@ -34,7 +31,7 @@ export default () => (
       <h3 className="title is-3 has-text-centered">Sponsors</h3>
       <div className="columns is-centered">
         <div className="column is-narrow">
-          <img src={bloomberg} alt="bloomberg-logo" />
+          <img src="/images/bloomberg-logo.png" alt="bloomberg-logo" />
         </div>
       </div>
     </div>

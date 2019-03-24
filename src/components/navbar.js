@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="icons/favicon.png" alt="favicon" />
+            <img src="/icons/favicon.png" alt="favicon" />
           </a>
           <div
             role="button"
