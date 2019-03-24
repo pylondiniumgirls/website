@@ -40,9 +40,30 @@ a {
     }
 }
 
-.hero.is-primary.is-bold {
+section.hero.is-primary.is-bold {
     display: flex;
     background: linear-gradient(to right, lighten($primary-color, 10), lighten($primary-color, 20));
+
+    &.cover {
+        $hero-background: lighten($primary-color, 10);
+        background: $hero-background;
+
+        div.hero-body {
+            background-image: url('/images/hero-image.png');
+            background-repeat: no-repeat;
+            background-position: 5% top;
+            background-size: contain;
+        
+            div.title,
+            div.subtitle {
+                display: inline-block;
+                border-radius: 5px;
+                background-color: transparentize($hero-background, 0.4);
+            }
+        }
+    }
+
+
 }
 
 .button.is-link {
