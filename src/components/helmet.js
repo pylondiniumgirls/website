@@ -25,6 +25,7 @@ export default () => (
 				<meta name="description" content={data.site.siteMetadata.description} />
 				<meta name="keywords" content={data.site.siteMetadata.keywords} />
 				<link rel="shortcut icon" type="image/png" href="/icons/favicon.png" />
+				<link href="https://fonts.googleapis.com/css?family=Dosis:500,700" rel="stylesheet" />
 				<title>{data.site.siteMetadata.title}</title>
 				<html lang="en" className="has-navbar-fixed-top"/>
 				{/* Google / Search Engine Meta Tags */}
