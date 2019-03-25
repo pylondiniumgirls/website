@@ -5,7 +5,7 @@ module.exports = {
 		imageUrl: 'https://i.imgur.com/Vz81GEl.png',
 		description: 'Django workshop for women beginners',
 		keywords: `Pylondinium, Django, workshop, beginners, programming, Python`,
-		twitter: 'https://twitter.com/amanhimself',
+		twitter: 'https://twitter.com/pylondiniumgir1/',
 		github: `https://github.com/pylondiniumgirls`,
 		siteUrl: `https://www.example.com`
 	},

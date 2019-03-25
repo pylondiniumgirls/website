@@ -20,13 +20,13 @@ export default () => (
             <div className="content">
               Would you like to learn how to build websites, but don't know
               where to start? Are you excited about programming but are not sure
-              how to begin your journey? Then this workshop might be perfect for
+              how to begin your journey? Then this workshop will be perfect for
               you.
             </div>
             <div className="content">
               Join us on Friday 14th June at Bloomberg for a free one-day
               workshop that will take place as part of the Pylondinium
-              Conference, 2019 edition. During this workshop, you will be able
+              Conference, 2019 edition. During this workshop you will be able
               to learn how to build websites from scratch using Python, Django,
               HTML and CSS.
             </div>

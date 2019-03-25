@@ -12,7 +12,7 @@ export default () => (
       <div className="columns is-centered">
         <div className="column is-half">
           <div className="column">
-            This workshop is completely organized by volunteers, who have
+            This workshop is completely organized by volunteers who have
             dedicated their time to make this the best possible experience. For
             that reason, we would like to thank the following people:
           </div>
@@ -45,11 +45,11 @@ export default () => (
           <a href="mailto: pylondiniumgirls@gmail.com">email</a> or you can
           leave us a message in our{" "}
           <a
-            href="https://twitter.com/pylondinium?lang=en"
+            href="https://twitter.com/pylondiniumgir1/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            twitter account
+            Twitter account
           </a>
         </div>
       </div>

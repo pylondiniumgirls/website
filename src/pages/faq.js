@@ -19,7 +19,7 @@ export default () => (
             </h5>
             <p>
               The workshop is aimed at complete beginners and no previous
-              knowledge about programming or building website is required to
+              knowledge about programming or building websites is required to
               particapte. However, if you do have some basic previous knowledge
               (for example, you have done some previous HTML or CSS in the
               past), we encourage you to apply because we are sure you will
@@ -54,11 +54,11 @@ export default () => (
               Will computers be provided during the workshop?
             </h5>
             <p>
-              Unfortunately, we cannot lend you any computers; therefore, you
+              Unfortunately we cannot lend you any computers; therefore, you
               will need to bring your own laptop with you. Bringing your own
               laptop will also enhance your experience, because you will be able
               to take home all the work you did during the day, show it to your
-              family and friends and continue working on it if you wish so.
+              family and friends and continue working on it if you wish to.
             </p>
           </div>
           <div className="column">
@@ -67,7 +67,7 @@ export default () => (
               software preinstalled?
             </h5>
             <p>
-              In order to be able to follow the tutorial of the workshop, you
+              In order to be able to follow the tutorial of the workshop you
               will need to have installed Git, a code editor, Python and Django
               in your computer. For a better experience during the workshop, we
               encourage you to have everything installed in advance. As we know
@@ -75,8 +75,7 @@ export default () => (
               will try to assign you a mentor that will help you install
               everything you need in the days before the workshop. However, if
               you don't have everything ready at your arrival, you will also
-              have the opportunity to install everything needed in the beginning
-              of the morning.
+              have the opportunity to install everything needed in the morning.
             </p>
           </div>
         </div>

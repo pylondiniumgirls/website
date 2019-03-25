@@ -23,7 +23,7 @@ export default () => (
                 <FaTwitter size="fa" />
               </span>
               <a
-                href="https://twitter.com/pylondinium?lang=en"
+                href="https://twitter.com/pylondiniumgir1/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

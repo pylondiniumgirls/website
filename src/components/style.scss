@@ -9,6 +9,7 @@ html {
 }
 
 body {
+    font-size: 1.25rem;
     color: $primary-color;
 }
 
@@ -97,4 +98,9 @@ img.centered {
 
 .radio:hover {
     color: $primary-color;
+}
+
+div#locationMap {
+    width: 100%;
+    height: 350px;
 }
