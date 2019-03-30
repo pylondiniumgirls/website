@@ -63,7 +63,7 @@ pushpin=${pushpin}&mapSize=${mapSize}&key=${BingAPIKey}`;
                 </p>
               </div>
             </div>
-            <div className="column is-half">
+            <div className="column is-quarter is-offset-1">
               <div className="content">
                 <h4 className="subtitle is-4 has-text-centered">Agenda</h4>
                 <p>
@@ -95,12 +95,12 @@ pushpin=${pushpin}&mapSize=${mapSize}&key=${BingAPIKey}`;
             <div className="column">
               <div className="content">
                 <h4 className="subtitle is-4 has-text-centered">Location</h4>
-                <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
+                <p className="has-text-centered">
+                  Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ
+                </p>
 
-                <div id="locationMap">
-                  <img src={MapUriDesktop} alt="Map" className="is-hidden-mobile" />
-                  <img src={MapUriMobile} alt="Map" className="is-hidden-tablet" />
-                </div>
+                <img src={MapUriDesktop} alt="Map" className="centered is-hidden-mobile" />
+                <img src={MapUriMobile} alt="Map" className="centered is-hidden-tablet" />
               </div>
             </div>
           </div>
