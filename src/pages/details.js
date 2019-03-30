@@ -1,12 +1,26 @@
 import React from "react";
 
-import { ReactBingmaps } from "react-bingmaps";
-
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
 export default () => {
-  const Bloomberg = [51.512794, -0.090699];
+  const BingAPIKey = "Ai8gXmSJ-FYoFMnzUjdgjwntoRXFJ0UJEANF4gsokEFLCHcQWuqunj81-TFNJeMr";
+  
+  const Bloomberg = "51.512794,-0.090699";
+  const pushpin = `${Bloomberg};46`;
+
+  const imagerySet = "Road";
+  const mapSize = "960,350";
+
+  const MapUriDesktop = `
+https://dev.virtualearth.net/REST/v1/Imagery/Map/
+${imagerySet}/${Bloomberg}/18?
+pushpin=${pushpin}&mapSize=${mapSize}&key=${BingAPIKey}`;
+
+  const MapUriMobile = `
+https://dev.virtualearth.net/REST/v1/Imagery/Map/
+${imagerySet}/${Bloomberg}/19?
+pushpin=${pushpin}&mapSize=${mapSize}&key=${BingAPIKey}`;
 
   return (
     <div>
@@ -84,13 +98,8 @@ export default () => {
                 <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
 
                 <div id="locationMap">
-                  <ReactBingmaps
-                    bingmapKey="Ai8gXmSJ-FYoFMnzUjdgjwntoRXFJ0UJEANF4gsokEFLCHcQWuqunj81-TFNJeMr"
-                    center={Bloomberg}
-                    pushPins={[{ location: Bloomberg }]}
-                    zoom={18}
-                    mapTypeId={"aerial"}
-                  />
+                  <img src={MapUriDesktop} className="is-hidden-mobile" />
+                  <img src={MapUriMobile} className="is-hidden-tablet" />
                 </div>
               </div>
             </div>

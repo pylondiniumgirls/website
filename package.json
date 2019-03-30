@@ -18,7 +18,6 @@
 		"gatsby-transformer-sharp": "^2.1.13",
 		"node-sass": "^4.11.0",
 		"react": "^16.8.4",
-		"react-bingmaps": "^3.6.1",
 		"react-dom": "^16.8.4",
 		"react-helmet": "^5.2.0",
 		"react-icons": "^3.5.0"
@@ -37,9 +36,11 @@
 		"develop": "gatsby develop",
 		"start": "npm run develop",
 		"format": "prettier --write \"src/**/*.js\"",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "gatsby build --prefix-paths && gh-pages -d public"
 	},
 	"devDependencies": {
+		"gh-pages": "^2.0.1",
 		"prettier": "^1.14.2"
 	},
 	"repository": {
