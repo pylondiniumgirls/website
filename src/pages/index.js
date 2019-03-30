@@ -13,8 +13,12 @@ export default () => (
     <section className="section">
       <div className="container">
         <div className="columns is-centered">
-          <div className="column is-one-quarter is-hidden-touch">
-            <img className="centered" src="/images/pylondinium_19.png" alt="pylondinium-logo" />
+          <div className="column is-one-quarter is-hidden-mobile">
+            <img
+              className="centered logo"
+              src="/images/workshop-logo.png"
+              alt="workshop-logo"
+            />
           </div>
           <div className="column is-half">
             <div className="content">
@@ -26,8 +30,8 @@ export default () => (
             <div className="content">
               Join us on Friday 14th June at Bloomberg for a free one-day
               workshop that will take place as part of the Pylondinium
-              Conference, 2019 edition. During this workshop you will be able
-              to learn how to build websites from scratch using Python, Django,
+              Conference, 2019 edition. During this workshop you will be able to
+              learn how to build websites from scratch using Python, Django,
               HTML and CSS.
             </div>
             <div className="buttons is-centered">
@@ -39,11 +43,20 @@ export default () => (
               </Link>
             </div>
           </div>
-          <div className="column is-one-quarter">
-            <img className="centered" src="/images/workshop-logo.png" alt="workshop-logo" />
+          <div className="column is-one-quarter is-hidden-tablet">
+            <img
+              className="centered logo"
+              height="312px"
+              src="/images/workshop-logo.png"
+              alt="workshop-logo"
+            />
           </div>
-          <div className="column is-one-quarter is-hidden-desktop">
-            <img className="centered" src="/images/pylondinium_19.png" alt="pylondinium-logo" />
+          <div className="column is-one-quarter">
+            <img
+              className="centered logo"
+              src="/images/pylondinium_19.png"
+              alt="pylondinium-logo"
+            />
           </div>
         </div>
       </div>

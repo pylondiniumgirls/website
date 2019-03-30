@@ -20,7 +20,7 @@ export default () => (
             <p>
               The workshop is aimed at complete beginners and no previous
               knowledge about programming or building websites is required to
-              particapte. However, if you do have some basic previous knowledge
+              participate. However, if you do have some basic previous knowledge
               (for example, you have done some previous HTML or CSS in the
               past), we encourage you to apply because we are sure you will
               still have a great time learning about a lot of other things such

@@ -16,25 +16,23 @@ export default () => (
             dedicated their time to make this the best possible experience. For
             that reason, we would like to thank the following people:
           </div>
-          <div className="columns is-centered">
-            <div className="column is-narrow">
-              <figure className="image is-128x128">
-                <img className="is-rounded" src="/images/ana-picture.jpg" alt="ana" />
-                <div className="content has-text-centered">Ana Lopez</div>
-              </figure>
-            </div>
-          </div>
+          <img
+            className="centered people"
+            src="/images/ana-picture.jpg"
+            alt="ana"
+          />
+          <div className="content has-text-centered">Ana Lopez</div>
         </div>
       </div>
     </section>
-    <div className="container">
+    <section className="container is-hidden-touch is-hidden-tablet">
       <h3 className="title is-3 has-text-centered">Sponsors</h3>
-      <div className="columns is-centered">
-        <div className="column is-narrow">
-          <img src="/images/bloomberg-logo.png" alt="bloomberg-logo" />
-        </div>
-      </div>
-    </div>
+      <img
+        className="centered"
+        src="/images/bloomberg-logo.png"
+        alt="bloomberg-logo"
+      />
+    </section>
     <section className="section">
       <h3 className="title is-3 has-text-centered">Contact us</h3>
       <div className="columns is-centered">

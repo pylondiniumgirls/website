@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ReactBingmaps } from 'react-bingmaps';
+import { ReactBingmaps } from "react-bingmaps";
 
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
@@ -21,17 +21,17 @@ export default () => {
                 <h4 className="subtitle is-4 has-text-centered">&nbsp;</h4>
                 <p>
                   We strongly believe in the value of diversity, and these
-                  events aim to kickstart and support women in tech. The
-                  workshop is aimed at <strong>complete beginners</strong> and
-                  no previous knowledge about programming is required to
-                  participate. It will be in the form of a tutorial which you
-                  will work on in small groups guided by a mentor, so you will
-                  be able to learn at your own pace and have all your questions
-                  answered.
+                  events aim to kickstart and support women and underrepresented
+                  groups in tech. The workshop is aimed at{" "}
+                  <strong>complete beginners</strong> and no previous knowledge
+                  about programming is required to participate. It will be in
+                  the form of a tutorial which you will work on in small groups
+                  guided by a mentor, so you will be able to learn at your own
+                  pace and have all your questions answered.
                 </p>
                 <p>
                   The event is <strong>totally free</strong>. As a workshop
-                  attendee you will:
+                  attendee you will have:
                 </p>
                 <ul>
                   <li>
@@ -53,7 +53,7 @@ export default () => {
               <div className="content">
                 <h4 className="subtitle is-4 has-text-centered">Agenda</h4>
                 <p>
-                  <strong>Friday 13th June 2019</strong>
+                  <strong>Friday 14th June 2019</strong>
                 </p>
                 <p>
                   <strong>8:30</strong> Guest arrival
@@ -87,9 +87,7 @@ export default () => {
                   <ReactBingmaps
                     bingmapKey="Ai8gXmSJ-FYoFMnzUjdgjwntoRXFJ0UJEANF4gsokEFLCHcQWuqunj81-TFNJeMr"
                     center={Bloomberg}
-                    pushPins={[
-                      {"location": Bloomberg}
-                    ]}
+                    pushPins={[{ location: Bloomberg }]}
                     zoom={18}
                     mapTypeId={"aerial"}
                   />

@@ -209,7 +209,7 @@ export default () => (
             <label className="label">Web page (optional)</label>
             <p className="help">
               Let us know your web page, your Linkedin profile, Github user...
-              to have a  link underneath your profile. Otherwise, leave this
+              to have a link underneath your profile. Otherwise, leave this
               field blank.
             </p>
             <div className="control">

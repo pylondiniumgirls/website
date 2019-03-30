@@ -47,28 +47,19 @@ export default () => (
           <div className="field">
             <label className="label">First Name</label>
             <div className="control">
-              <input
-                className="input"
-                type="text"
-              />
+              <input className="input" type="text" />
             </div>
           </div>
           <div className="field">
             <label className="label">Last Name</label>
             <div className="control">
-              <input
-                className="input"
-                type="text"
-              />
+              <input className="input" type="text" />
             </div>
           </div>
           <div className="field">
             <label className="label">Email</label>
             <div className="control">
-              <input
-                className="input"
-                type="text"
-              />
+              <input className="input" type="text" />
             </div>
           </div>
           <div className="field">
@@ -185,8 +176,8 @@ export default () => (
           <div className="field">
             <div className="control">
               <label className="checkbox">
-                <input type="checkbox" name="coc-question" />{" "}
-                I've read and understood the Code of Conduct for the workshop
+                <input type="checkbox" name="coc-question" /> I've read and
+                understood the Code of Conduct for the workshop
               </label>
             </div>
           </div>
