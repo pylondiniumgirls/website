@@ -3,6 +3,9 @@ import React from "react";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
+import picture_ana from "../images/ana-picture.jpg";
+import bloomberg_logo from "../images/bloomberg-logo.png";
+
 export default () => (
   <div>
     <Helmet />
@@ -18,7 +21,7 @@ export default () => (
           </div>
           <img
             className="centered people"
-            src="/images/ana-picture.jpg"
+            src={picture_ana}
             alt="ana"
           />
           <div className="content has-text-centered">Ana Lopez</div>
@@ -29,7 +32,7 @@ export default () => (
       <h3 className="title is-3 has-text-centered">Sponsors</h3>
       <img
         className="centered"
-        src="/images/bloomberg-logo.png"
+        src={bloomberg_logo}
         alt="bloomberg-logo"
       />
     </section>

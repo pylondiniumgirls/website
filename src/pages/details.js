@@ -98,8 +98,8 @@ pushpin=${pushpin}&mapSize=${mapSize}&key=${BingAPIKey}`;
                 <p>Bloomberg LP, 3 Queen Victoria Street, London, EC4N 4TQ</p>
 
                 <div id="locationMap">
-                  <img src={MapUriDesktop} className="is-hidden-mobile" />
-                  <img src={MapUriMobile} className="is-hidden-tablet" />
+                  <img src={MapUriDesktop} alt="Map" className="is-hidden-mobile" />
+                  <img src={MapUriMobile} alt="Map" className="is-hidden-tablet" />
                 </div>
               </div>
             </div>

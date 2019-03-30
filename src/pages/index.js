@@ -5,6 +5,9 @@ import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 import Header from "../components/header";
 
+import logo from "../images/workshop-logo.png";
+import pylondinium_logo from "../images/pylondinium_19.png";
+
 export default () => (
   <div>
     <Helmet />
@@ -16,7 +19,7 @@ export default () => (
           <div className="column is-one-quarter is-hidden-mobile">
             <img
               className="centered logo"
-              src="/images/workshop-logo.png"
+              src={logo}
               alt="workshop-logo"
             />
           </div>
@@ -47,14 +50,14 @@ export default () => (
             <img
               className="centered logo"
               height="312px"
-              src="/images/workshop-logo.png"
+              src={logo}
               alt="workshop-logo"
             />
           </div>
           <div className="column is-one-quarter">
             <img
               className="centered logo"
-              src="/images/pylondinium_19.png"
+              src={pylondinium_logo}
               alt="pylondinium-logo"
             />
           </div>

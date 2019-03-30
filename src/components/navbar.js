@@ -3,6 +3,8 @@ import { Link } from "gatsby";
 
 import "./style.scss";
 
+import menu_logo from "../images/menu-logo.png";
+
 const Navbar = () => {
   const navbar = React.createRef();
   let navbarOpen = false;
@@ -22,7 +24,7 @@ const Navbar = () => {
       <div className="container">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="/icons/favicon.png" alt="favicon" />
+            <img src={menu_logo} alt="favicon" />
           </a>
           <div
             role="button"
