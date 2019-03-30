@@ -23,9 +23,9 @@ const Navbar = () => {
     >
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item" href="/">
+          <Link className="navbar-item" to="/">
             <img src={menu_logo} alt="favicon" />
-          </a>
+          </Link>
           <div
             role="button"
             className="navbar-burger burger"
