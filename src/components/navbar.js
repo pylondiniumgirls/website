@@ -45,7 +45,7 @@ const Navbar = () => {
               <Link to="/details">Details</Link>
             </span>
             <div className="navbar-item has-dropdown is-hoverable">
-              <div className="navbar-link">Inscription</div>
+              <div className="navbar-link">Registration</div>
               <div className="navbar-dropdown">
                 <span className="navbar-item">
                   <Link to="/participants">Participants</Link>

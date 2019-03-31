@@ -9,13 +9,13 @@ export default () => (
     <Helmet />
     <Navbar />
     <section className="section">
-      <h1 className="title has-text-centered">Mentor inscription</h1>
+      <h1 className="title has-text-centered">Mentor registration</h1>
     </section>
     <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
-            We are sorry but the inscription is not open yet!
+            We are sorry but the registration is not open yet!
           </h1>
           <div className="buttons is-centered">
             <div className="button is-medium is-link is-in-hero">
@@ -37,7 +37,7 @@ export default () => (
     <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title has-text-centered">The inscription is open!</h1>
+          <h1 className="title has-text-centered">The registration is open!</h1>
         </div>
       </div>
     </section>
