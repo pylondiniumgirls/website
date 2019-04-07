@@ -4,6 +4,439 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
+function Request(form) {
+  function validate() {
+    // Validate first name
+    const firstName = formData.get("first_name");
+    inputErrors.firstName = firstName.toLowerCase() === firstName.toUpperCase();
+
+    // Validate last name
+    const lastName = formData.get("last_name");
+    inputErrors.lastName = lastName.toLowerCase() === lastName.toUpperCase();
+
+    // Validate email
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    inputErrors.email = !emailRegex.test(formData.get("email"));
+
+    inputErrors.companyName = formData.get("company_name") === "";
+
+    // If the mentor has django experience, teling us about their django
+    // experience is required.
+    if (formData.get("django_experience") === "true") {
+      inputErrors.djangoExperienceNotes =
+        formData.get("django_experience_notes") === "";
+    }
+
+    // At least one os needs to be selected
+    inputErrors.os = formData.getAll("os").length === 0;
+
+    // The information about the mentor is required
+    inputErrors.about = formData.get("about") === "";
+
+    // If website info has been selected, the name of the mentor for
+    // the website is required.
+    if (formData.get("website_info") === "true") {
+      inputErrors.websiteInfoName = formData.get("website_info_name") === "";
+    }
+
+    // It is required to read and accept the coc
+    inputErrors.coc = formData.get("coc") !== "accept";
+
+    return !Object.keys(inputErrors).some(key => inputErrors[key]);
+  }
+
+  let inputErrors = {
+    firstName: false,
+    lastName: false,
+    email: false,
+    companyName: false,
+    djangoExperienceNotes: false,
+    os: false,
+    about: false,
+    websiteInfoName: false,
+    coc: false
+  };
+
+  let formData = new FormData(form);
+  let data = {
+    type: "mentor",
+    firstName: formData.get("first_name"),
+    lastName: formData.get("last_name"),
+    email: formData.get("email"),
+    companyName: formData.get("company_name"),
+    djangoExperience: formData.get("django_experience") === "true",
+    djangoExperienceNotes: formData.get("django_experience_notes"),
+    os: formData.getAll("os"),
+    windowsAccepted: formData.get("windows_accepted") === "true",
+    canHelpInstalling: formData.get("can_help_installing") === "true",
+    dietary: formData.get("dietary") || "None",
+    about: formData.get("about")
+  };
+
+  if (formData.get("website_info") === "true") {
+    let websiteInfo = {
+      name: formData.get("website_info_name")
+    };
+
+    let websiteInfoPicture = formData.get("website_info_picture");
+    if (websiteInfoPicture) {
+      websiteInfo["picture"] = websiteInfoPicture;
+    }
+
+    let websiteInfoTwitter = formData.get("website_info_twitter");
+    if (websiteInfoTwitter) {
+      websiteInfo["twitter"] = websiteInfoTwitter;
+    }
+
+    let websiteInfoUrl = formData.get("website_info_url");
+    if (websiteInfoUrl) {
+      websiteInfo["website"] = websiteInfoUrl;
+    }
+
+    data["website_info"] = websiteInfo;
+  }
+
+  return {
+    data: data,
+    errors: inputErrors,
+    isValid: validate
+  };
+}
+
+class MyForm extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      errors: {},
+      submitted: false
+    };
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let request = new Request(event.target);
+
+    if (request.isValid()) {
+      console.log(JSON.stringify(request.data));
+      /*fetch('/api/form-submit-url', {
+        method: 'POST',
+        body: data,
+      });*/
+      this.setState({ submitted: true });
+      event.target.reset();
+    } else {
+      this.setState({ submitted: false });
+    }
+
+    this.setState({ errors: request.errors });
+  }
+
+  render() {
+    const errors = this.state.errors;
+    const success = this.state.submitted;
+    const hasErrors = Object.keys(errors).some(key => errors[key]);
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="field">
+            <label className="label">First Name</label>
+            <div className="control">
+              <input
+                className={errors.firstName ? "input is-danger" : "input"}
+                name="first_name"
+                type="text"
+              />
+              {errors.firstName && (
+                <p className="help is-danger">
+                  Invalid first name: first name can only contain letters
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Last Name</label>
+            <div className="control">
+              <input
+                className={errors.lastName ? "input is-danger" : "input"}
+                name="last_name"
+                type="text"
+              />
+              {errors.lastName && (
+                <p className="help is-danger">
+                  Invalid last name: last name can only contain letters
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Email</label>
+            <div className="control">
+              <input
+                className={errors.email ? "input is-danger" : "input"}
+                name="email"
+                type="text"
+              />
+              {errors.email && <p className="help is-danger">Invalid email</p>}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Company Name</label>
+            <div className="control">
+              <input
+                className={errors.companyName ? "input is-danger" : "input"}
+                name="company_name"
+                type="text"
+              />
+              {errors.companyName && (
+                <p className="help is-danger">
+                Please provide the name of the company you work for
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Do you have any experience in Django?
+              </label>
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="django_experience"
+                  value="true"
+                  checked
+                />{" "}
+                Yes
+              </label>
+              <br />
+              <label className="radio">
+                <input type="radio" name="django_experience" value="false" /> No
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">
+              If you have experience in Django, could you tell us a bit more
+              about it?
+            </label>
+            <div className="control">
+              <textarea
+                className={
+                  errors.djangoExperienceNotes
+                    ? "textarea is-danger"
+                    : "textarea"
+                }
+                name="django_experience_notes"
+              />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Which operating system do you prefer to work with?
+              </label>
+              <label className="checkbox">
+                <input type="checkbox" name="os" value="macos" /> Mac OS X
+              </label>
+              <br />
+              <label className="checkbox">
+                <input type="checkbox" name="os" value="windows" /> Windows
+              </label>
+              <br />
+              <label className="checkbox">
+                <input type="checkbox" name="os" value="linux" /> Linux
+              </label>
+              {errors.os && (
+                <p className="help is-danger">
+                  Please check at least one checkbox
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                If there was not a group that will use the operative system you
+                have selected, would you be ok working with a Windows group?
+              </label>
+              <label className="radio">
+                <input type="radio" name="windows_accepted" value="true" /> Yes
+              </label>
+              <br />
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="windows_accepted"
+                  value="false"
+                  checked
+                />{" "}
+                No
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Do you think you will have enough time before the event to help
+                your group (maximum 3 people) to install Python and Django on
+                their laptops through Google Hangouts / Skype / e-mail?
+              </label>
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="can_help_installing"
+                  value="true"
+                  checked
+                />{" "}
+                Yes
+              </label>
+              <br />
+              <label className="radio">
+                <input type="radio" name="can_help_installing" value="false" />{" "}
+                No
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Do you have any dietary requirements?
+              </label>
+              <div className="control">
+                <textarea className="textarea" name="dietary" />
+              </div>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Please, tell us a bit about yourself.
+              </label>
+              <div className="control">
+                <textarea
+                  className={errors.about ? "textarea is-danger" : "textarea"}
+                  name="about"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Would you like to figure in the event website?
+              </label>
+              <p className="help">
+                We would like to give you visibility in the webiste of the
+                event, so we can show your contribution to the workshop and the
+                Python community in general. If your answer is 'Yes', we will
+                need you to also answer the next four questions. Otherwise, you
+                can skip them.
+              </p>
+              <label className="radio">
+                <input type="radio" name="website_info" value="true" /> Yes
+              </label>
+              <br />
+              <label className="radio">
+                <input type="radio" name="website_info" value="false" checked />{" "}
+                No
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">
+              What name would you like to use in the website?
+            </label>
+            <div className="control">
+              <input
+                className={errors.websiteInfoName ? "input is-danger" : "input"}
+                name="website_info_name"
+                type="text"
+              />
+              {errors.websiteInfoName && (
+                <p className="help is-danger">
+                  This field is required and it can only contain letters
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Personal picture (optional)</label>
+            <p className="help">
+              Let us know a URL where we can find a personal picture of you if
+              you want to have it associated to your name in the website.
+              Otherwise, leave this field in blank and we will put a placeholder
+              instead.
+            </p>
+            <div className="control">
+              <input
+                className="input"
+                name="website_info_picture"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Twitter (optional)</label>
+            <p className="help">
+              Let us know you Twitter handler if you would like to have a link
+              underneath your profile. Otherwise, leave this field blank.
+            </p>
+            <div className="control">
+              <input
+                className="input"
+                name="website_info_twitter"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Web page (optional)</label>
+            <p className="help">
+              Let us know your web page, your Linkedin profile, Github user...
+              to have a link underneath your profile. Otherwise, leave this
+              field blank.
+            </p>
+            <div className="control">
+              <input className="input" name="website_info_url" type="text" />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="checkbox">
+                <input type="checkbox" name="coc" value="accept" /> I've read
+                and understood the Code of Conduct for the workshop
+              </label>
+              {errors.coc && (
+                <p className="help is-danger">
+                  It is required from you to read and accept the Code of Conduct
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <button className="button is-link">Submit application</button>
+            </div>
+          </div>
+          {success && (
+            <h5 className="subtitle is-5 is-success">
+              Thank you for registrating! You will receive an answer by the end
+              of May.
+            </h5>
+          )}
+          {hasErrors && (
+            <h5 className="subtitle is-5 is-failure">
+              Sorry, we couldn't submit the registration. Make sure all of the
+              required fields are filled and valid.
+            </h5>
+          )}
+        </form>
+      </div>
+    );
+  }
+}
+
 export default () => (
   <div>
     <Helmet />
@@ -44,191 +477,7 @@ export default () => (
     <section className="section is-hidden-touch is-hidden-tablet">
       <div className="columns is-centered">
         <div className="column is-half">
-          <div className="field">
-            <label className="label">First Name</label>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Last Name</label>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Email</label>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Do you have any experience in Django?
-              </label>
-              <label className="radio">
-                <input type="radio" name="yes-experience-question" /> Yes
-              </label>
-              <br />
-              <label className="radio">
-                <input type="radio" name="no-experience-question" /> No
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">
-              If you have experience in Django, could you tell us a bit more
-              about it?
-            </label>
-            <div className="control">
-              <textarea className="textarea" />
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Which operating system do you prefer to work with?
-              </label>
-              <label className="checkbox">
-                <input type="checkbox" name="mac-os-question" /> Mac OS X
-              </label>
-              <br />
-              <label className="checkbox">
-                <input type="checkbox" name="windows-os-question" /> Windows
-              </label>
-              <br />
-              <label className="checkbox">
-                <input type="checkbox" name="linux-os-question" /> Linux
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                If there was not a group that will use the operative system you
-                have selected, would you be ok working with a Windows group?
-              </label>
-              <label className="radio">
-                <input type="radio" name="yes-windows-question" /> Yes
-              </label>
-              <br />
-              <label className="radio">
-                <input type="radio" name="no-windows-question" /> No
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Do you think you will have enough time before the event to help
-                your group (maximum 3 people) to install Python and Django on
-                their laptops through Google Hangouts / Skype / e-mail?
-              </label>
-              <label className="radio">
-                <input type="radio" name="yes-help-question" /> Yes
-              </label>
-              <br />
-              <label className="radio">
-                <input type="radio" name="no-help-question" /> No
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Do you have any dietary requirements?
-              </label>
-              <div className="control">
-                <textarea className="textarea" />
-              </div>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Please, tell us a bit about yourself.
-              </label>
-              <div className="control">
-                <textarea className="textarea" />
-              </div>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Would you like to figure in the event website?
-              </label>
-              <p className="help">
-                We would like to give you visibility in the webiste of the
-                event, so we can show your contribution to the workshop and the
-                Python community in general. If your answer is 'Yes', we will
-                need you to also answer the next four questions. Otherwise, you
-                can skip them.
-              </p>
-              <label className="radio">
-                <input type="radio" name="yes-help-question" /> Yes
-              </label>
-              <br />
-              <label className="radio">
-                <input type="radio" name="no-help-question" /> No
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">
-              What name would you like to use in the website?
-            </label>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Personal picture (optional)</label>
-            <p className="help">
-              Let us know a URL where we can find a personal picture of you if
-              you want to have it associated to your name in the website.
-              Otherwise, leave this field in blank and we will put a placeholder
-              instead.
-            </p>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Twitter (optional)</label>
-            <p className="help">
-              Let us know you Twitter handler if you would like to have a link
-              underneath your profile. Otherwise, leave this field blank.
-            </p>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Web page (optional)</label>
-            <p className="help">
-              Let us know your web page, your Linkedin profile, Github user...
-              to have a link underneath your profile. Otherwise, leave this
-              field blank.
-            </p>
-            <div className="control">
-              <input className="input" type="text" />
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="checkbox">
-                <input type="checkbox" name="coc-question" /> I've read and
-                understood the Code of Conduct for the workshop
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <button className="button is-link">Submit application</button>
-            </div>
-          </div>
+          <MyForm />
         </div>
       </div>
     </section>
