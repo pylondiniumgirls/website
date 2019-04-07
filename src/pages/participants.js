@@ -4,12 +4,12 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-
 function Request(form) {
   function validate() {
     // Validate first name
     let first_name = formData.get("first_name");
-    inputErrors.first_name = first_name.toLowerCase() === first_name.toUpperCase();
+    inputErrors.first_name =
+      first_name.toLowerCase() === first_name.toUpperCase();
 
     // Validate last name
     let last_name = formData.get("last_name");
@@ -40,7 +40,7 @@ function Request(form) {
     // It is required to read and accept the coc
     inputErrors.coc = formData.get("coc") !== "accept";
 
-    return !Object.keys(inputErrors).some((key) => inputErrors[key]);
+    return !Object.keys(inputErrors).some(key => inputErrors[key]);
   }
 
   let inputErrors = {
@@ -66,14 +66,14 @@ function Request(form) {
     experience_notes: formData.get("experience_notes"),
     occupation: formData.get("occupation"),
     motivations: formData.get("motivations"),
-    dietary: formData.get("dietary") || 'None',
+    dietary: formData.get("dietary") || "None"
   };
 
   return {
     data: data,
     errors: inputErrors,
     isValid: validate
-  }
+  };
 }
 
 class MyForm extends React.Component {
@@ -82,7 +82,7 @@ class MyForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       errors: {},
-      submitted: false,
+      submitted: false
     };
   }
 
@@ -90,42 +90,40 @@ class MyForm extends React.Component {
     event.preventDefault();
     let request = new Request(event.target);
 
-    if(request.isValid()) {
+    if (request.isValid()) {
       console.log(JSON.stringify(request.data));
       /*fetch('/api/form-submit-url', {
         method: 'POST',
         body: data,
       });*/
-      this.setState({submitted: true});
+      this.setState({ submitted: true });
       event.target.reset();
     } else {
-      this.setState({submitted: false});
+      this.setState({ submitted: false });
     }
 
-    this.setState({errors: request.errors});
+    this.setState({ errors: request.errors });
     window.scrollTo(0, 0);
   }
 
   render() {
     const errors = this.state.errors;
     const success = this.state.submitted;
-    const hasErrors = Object.keys(errors).some((key) => errors[key]);
+    const hasErrors = Object.keys(errors).some(key => errors[key]);
     return (
       <div>
-        {
-          success &&
+        {success && (
           <h5 className="subtitle is-5 is-success">
-            Thank you for registrating!
-            You will receive an answer by the end of May.
+            Thank you for registrating! You will receive an answer by the end of
+            May.
           </h5>
-        }
-        {
-          hasErrors &&
+        )}
+        {hasErrors && (
           <h5 className="subtitle is-5 is-failure">
-            Sorry, we couldn't submit the registration.
-            Make sure all of the required fields are filled and valid.
+            Sorry, we couldn't submit the registration. Make sure all of the
+            required fields are filled and valid.
           </h5>
-        }
+        )}
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label" htmlFor="first_name">
@@ -137,12 +135,11 @@ class MyForm extends React.Component {
                 name="first_name"
                 type="text"
               />
-              {
-                errors.first_name &&
+              {errors.first_name && (
                 <p className="help is-danger">
                   Invalid first name: the first name can only have letters
                 </p>
-              }
+              )}
             </div>
           </div>
           <div className="field">
@@ -155,12 +152,11 @@ class MyForm extends React.Component {
                 name="last_name"
                 type="text"
               />
-              {
-                errors.last_name &&
+              {errors.last_name && (
                 <p className="help is-danger">
                   Invalid last name: the last name can only have letters
                 </p>
-              }
+              )}
             </div>
           </div>
           <div className="field">
@@ -209,12 +205,11 @@ class MyForm extends React.Component {
               <label className="checkbox">
                 <input type="checkbox" name="os" value="linux" /> Linux
               </label>
-              {
-                errors.os &&
+              {errors.os && (
                 <p className="help is-danger">
                   Please select at least one operative system
                 </p>
-              }
+              )}
             </div>
           </div>
           <div className="field">
@@ -223,13 +218,13 @@ class MyForm extends React.Component {
                 What is your current level of experience with programming?
               </label>
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="beginner" /> I'm a
-                total beginner, I don't know anything about it
+                <input type="checkbox" name="experience" value="beginner" /> I'm
+                a total beginner, I don't know anything about it
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="html_css" /> I've
-                tried some HTML or CSS before
+                <input type="checkbox" name="experience" value="html_css" />{" "}
+                I've tried some HTML or CSS before
               </label>
               <br />
               <label className="checkbox">
@@ -248,15 +243,15 @@ class MyForm extends React.Component {
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="professional" /> I
-                work as a programmer
+                <input type="checkbox" name="experience" value="professional" />{" "}
+                I work as a programmer
               </label>
-              {
-                errors.experience &&
+              {errors.experience && (
                 <p className="help is-danger">
-                  Please select at least one checkbox about your level of experience
+                  Please select at least one checkbox about your level of
+                  experience
                 </p>
-              }
+              )}
             </div>
           </div>
           <div className="field">
@@ -267,17 +262,18 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
-                  className={errors.experience_notes ? "textarea is-danger" : "textarea"}
+                  className={
+                    errors.experience_notes ? "textarea is-danger" : "textarea"
+                  }
                   name="experience_notes"
                   placeholder=""
                 />
-                {
-                  errors.experience_notes &&
+                {errors.experience_notes && (
                   <p className="help is-danger">
-                    As you selected an experience different than beginner,
-                    this field is required
+                    As you selected an experience different than beginner, this
+                    field is required
                   </p>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -303,14 +299,15 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
-                  className={errors.motivations ? "textarea is-danger" : "textarea"}
+                  className={
+                    errors.motivations ? "textarea is-danger" : "textarea"
+                  }
                   name="motivations"
                   placeholder=""
                 />
-                {
-                  errors.motivations &&
+                {errors.motivations && (
                   <p className="help is-danger">This field is required</p>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -327,26 +324,23 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="checkbox">
-                <input type="checkbox" name="coc" value="accept"/>
+                <input type="checkbox" name="coc" value="accept" />
                 I've read and understood the Code of Conduct for the workshop
               </label>
-              {
-                errors.coc &&
+              {errors.coc && (
                 <p className="help is-danger">
                   It is required from you to read and accept the Code of Conduct
                 </p>
-              }
+              )}
             </div>
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link">
-                Submit application
-              </button>
+              <button className="button is-link">Submit application</button>
             </div>
           </div>
         </form>
-    </div>
+      </div>
     );
   }
 }
