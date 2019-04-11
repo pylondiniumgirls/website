@@ -112,7 +112,7 @@ class MyForm extends React.Component {
     };
   }
 
-  handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
     let request = new Request(event.target);
 
