@@ -314,7 +314,7 @@ class MyForm extends React.Component {
                   className={errors.companyName ? "input is-danger" : "input"}
                   name="company_name"
                   type="text"
-                  default="Name of the company you work for"
+                  placeholder="Name of the company you work for"
                 />
               </div>
               {errors.workingStatus && (
