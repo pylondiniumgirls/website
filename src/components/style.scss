@@ -20,6 +20,10 @@ strong {
 a {
     color: $link-color;
 
+    &.emphasis {
+        font-weight: bold;
+    }
+
     &:hover {
         color: $secondary-color;
     }
