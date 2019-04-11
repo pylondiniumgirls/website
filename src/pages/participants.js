@@ -413,7 +413,7 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Participant registration</h1>
     </section>
-    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
+    <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
@@ -436,14 +436,14 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="hero is-primary is-bold is-medium">
+    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
         </div>
       </div>
     </section>
-    <section className="section">
+    <section className="section is-hidden-touch is-hidden-tablet">
       <div className="columns is-centered">
         <div className="column is-half">
           <MyForm />
