@@ -7,31 +7,47 @@ import Navbar from "../components/navbar";
 function Request(form) {
   function validate() {
     // Validate first name
-    let first_name = formData.get("first_name");
-    inputErrors.first_name =
-      first_name.toLowerCase() === first_name.toUpperCase();
+    const firstName = formData.get("first_name");
+    inputErrors.firstName = firstName.toLowerCase() === firstName.toUpperCase();
 
     // Validate last name
-    let last_name = formData.get("last_name");
-    inputErrors.last_name = last_name.toLowerCase() === last_name.toUpperCase();
+    const lastName = formData.get("last_name");
+    inputErrors.lastName = lastName.toLowerCase() === lastName.toUpperCase();
 
     // Validate email
-    let email_regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-    inputErrors.email = !email_regex.test(formData.get("email"));
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    inputErrors.email = !emailRegex.test(formData.get("email"));
 
     // It is compulsory to select an os
     inputErrors.os = formData.getAll("os").length === 0;
 
     // It is compulsory to select a level of experience
-    let experience = formData.getAll("experience");
+    const experience = formData.getAll("experience");
     inputErrors.experience = experience.length === 0;
 
     // If the experience is not beginner, it is compulsory to say something
     // about this experience
     if (experience.filter(elem => elem !== "beginner").length !== 0) {
-      inputErrors.experience_notes = formData.get("experience_notes") === "";
+      inputErrors.experienceNotes = formData.get("experience_notes") === "";
     } else {
-      inputErrors.experience_notes = false;
+      inputErrors.experienceNotes = false;
+    }
+
+    // Check that they have selected only one checkbox in the occupation
+    // field
+    const workingStatus = formData.getAll("working_status");
+    if (workingStatus.length !== 1) {
+      inputErrors.workingStatus = true;
+    } else {
+      // If they have selected "Other", make sure that they are provided
+      // the name of the company.
+      const companyName = formData.get("company_name");
+      if ((workingStatus[0] === "other") && (companyName === "")) {
+        inputErrors.companyName = true;
+      } else {
+        inputErrors.companyName = false;
+      }
+      inputErrors.workingStatus = false;
     }
 
     // It is required to explain the motivations for the workshop
@@ -40,16 +56,24 @@ function Request(form) {
     // It is required to read and accept the coc
     inputErrors.coc = formData.get("coc") !== "accept";
 
-    return !Object.keys(inputErrors).some(key => inputErrors[key]);
+    for (let errorType in inputErrors) {
+      if (inputErrors[errorType]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   let inputErrors = {
-    first_name: false,
-    last_name: false,
+    firstName: false,
+    lastName: false,
     email: false,
     os: false,
     experience: false,
-    experience_notes: false,
+    experienceNotes: false,
+    workingStatus: false,
+    companyName: false,
     motivations: false,
     coc: false
   };
@@ -57,13 +81,15 @@ function Request(form) {
   let formData = new FormData(form);
   let data = {
     type: "attendee",
-    first_name: formData.get("first_name"),
-    last_name: formData.get("last_name"),
+    firstName: formData.get("first_name"),
+    lastName: formData.get("last_name"),
     email: formData.get("email"),
-    legal_age: formData.get("legal_age") === "true",
+    legalAge: formData.get("legal_age") === "true",
     os: formData.getAll("os"),
     experience: formData.getAll("experience"),
-    experience_notes: formData.get("experience_notes"),
+    experienceNotes: formData.get("experience_notes"),
+    workingStatus: formData.getAll("working_status")[0],
+    companyName: formData.get("company_name"),
     occupation: formData.get("occupation"),
     motivations: formData.get("motivations"),
     dietary: formData.get("dietary") || "None"
@@ -103,7 +129,6 @@ class MyForm extends React.Component {
     }
 
     this.setState({ errors: request.errors });
-    window.scrollTo(0, 0);
   }
 
   render() {
@@ -112,18 +137,6 @@ class MyForm extends React.Component {
     const hasErrors = Object.keys(errors).some(key => errors[key]);
     return (
       <div>
-        {success && (
-          <h5 className="subtitle is-5 is-success">
-            Thank you for registrating! You will receive an answer by the end of
-            May.
-          </h5>
-        )}
-        {hasErrors && (
-          <h5 className="subtitle is-5 is-failure">
-            Sorry, we couldn't submit the registration. Make sure all of the
-            required fields are filled and valid.
-          </h5>
-        )}
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label" htmlFor="first_name">
@@ -131,11 +144,11 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
-                className={errors.first_name ? "input is-danger" : "input"}
+                className={errors.firstName ? "input is-danger" : "input"}
                 name="first_name"
                 type="text"
               />
-              {errors.first_name && (
+              {errors.firstName && (
                 <p className="help is-danger">
                   Invalid first name: the first name can only have letters
                 </p>
@@ -148,11 +161,11 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
-                className={errors.last_name ? "input is-danger" : "input"}
+                className={errors.lastName ? "input is-danger" : "input"}
                 name="last_name"
                 type="text"
               />
-              {errors.last_name && (
+              {errors.lastName && (
                 <p className="help is-danger">
                   Invalid last name: the last name can only have letters
                 </p>
@@ -263,12 +276,12 @@ class MyForm extends React.Component {
               <div className="control">
                 <textarea
                   className={
-                    errors.experience_notes ? "textarea is-danger" : "textarea"
+                    errors.experienceNotes ? "textarea is-danger" : "textarea"
                   }
                   name="experience_notes"
                   placeholder=""
                 />
-                {errors.experience_notes && (
+                {errors.experienceNotes && (
                   <p className="help is-danger">
                     As you selected an experience different than beginner, this
                     field is required
@@ -279,15 +292,51 @@ class MyForm extends React.Component {
           </div>
           <div className="field">
             <div className="control">
-              <label className="label" htmlFor="occupation">
-                What is your current occupation? Are you a student?
+              <label className="label" htmlFor="working_status">
+                What is your current working status?
+              </label>
+              <label className="checkbox">
+                <input type="checkbox" name="working_status" value="unemployed" />{" "}
+                I am unemployed
+              </label>
+              <br />
+              <label className="checkbox">
+                <input type="checkbox" name="working_status" value="student" />{" "}
+                I am a student
+              </label>
+              <br />
+              <label className="checkbox">
+                <input type="checkbox" name="working_status" value="other" />{" "}
+                Other
               </label>
               <div className="control">
-                <textarea
-                  className="textarea"
-                  name="occupation"
-                  placeholder=""
+                <input
+                  className={errors.companyName ? "input is-danger" : "input"}
+                  name="company_name"
+                  type="text"
+                  default="Name of the company you work for"
                 />
+              </div>
+              {errors.workingStatus && (
+                <p className="help is-danger">
+                  Please select the checkbox that best applies to your current
+                  working status.
+                </p>
+              )}
+              {errors.companyName && (
+                <p className="help is-danger">
+                  Please, tell us what is the name of the company you work for.
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label" htmlFor="occupation">
+                Please, tell us a bit more about what you study or what you work as.
+              </label>
+              <div className="control">
+                <textarea className="textarea" name="occupation" placeholder="" />
               </div>
             </div>
           </div>
@@ -339,6 +388,18 @@ class MyForm extends React.Component {
               <button className="button is-link">Submit application</button>
             </div>
           </div>
+          {success && (
+            <h5 className="subtitle is-5 is-success">
+              Thank you for registrating! You will receive an answer by the end of
+              May.
+            </h5>
+          )}
+          {hasErrors && (
+            <h5 className="subtitle is-5 is-failure">
+              Sorry, we couldn't submit the registration. Make sure all of the
+              required fields are filled and valid.
+            </h5>
+          )}
         </form>
       </div>
     );
@@ -352,7 +413,7 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Participant registration</h1>
     </section>
-    <section className="hero is-primary is-bold is-medium">
+    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
@@ -375,14 +436,14 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
+    <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
         </div>
       </div>
     </section>
-    <section className="section is-hidden-touch is-hidden-tablet">
+    <section className="section">
       <div className="columns is-centered">
         <div className="column is-half">
           <MyForm />
