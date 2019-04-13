@@ -24,9 +24,9 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="container is-hidden-touch is-hidden-tablet">
+    <section className="container">
       <h3 className="title is-3 has-text-centered">Sponsors</h3>
-      <img className="centered" src={bloomberg_logo} alt="bloomberg-logo" />
+      <img className="centered logo" src={bloomberg_logo} alt="bloomberg-logo" />
     </section>
     <section className="section">
       <h3 className="title is-3 has-text-centered">Contact us</h3>

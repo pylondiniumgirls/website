@@ -120,6 +120,10 @@ div.column > img.logo {
     max-height: 312px;
 }
 
+section > img.logo {
+    max-height: 100px;
+}
+
 
 img {
     &.centered {
