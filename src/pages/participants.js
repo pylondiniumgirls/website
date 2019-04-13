@@ -4,24 +4,6 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-function RequestErrors() {
-  return {
-    firstName: false,
-    lastName: false,
-    email: false,
-    legalGuardianfirName: false,
-    legalGuardianLastName: false,
-    legalGuardianEmail: false,
-    os: false,
-    experience: false,
-    experienceNotes: false,
-    workingStatus: false,
-    companyName: false,
-    motivations: false,
-    coc: false
-  };
-};
-
 function Request(form) {
   function validate() {
     const namesRegex = /^[a-zA-Z\s]+$/;
@@ -87,6 +69,12 @@ function Request(form) {
     // It is required to read and accept the coc
     inputErrors.coc = formData.get("coc") !== "accept";
 
+    // If they are asking for financial aid, it is required to explain the reason
+    if (formData.get("financial_help") === "true") {
+      inputErrors.financialHelpNotes =
+        formData.get("financial_help_notes") === "";
+    }
+
     for (let errorType in inputErrors) {
       if (inputErrors[errorType]) {
         return false;
@@ -96,24 +84,38 @@ function Request(form) {
     return true;
   }
 
-  let inputErrors = new RequestErrors();
+  let inputErrors = {
+    firstName: false,
+    lastName: false,
+    email: false,
+    legalGuardianFirstName: false,
+    legalGuardianLastName: false,
+    legalGuardianEmail: false,
+    os: false,
+    experience: false,
+    experienceNotes: false,
+    workingStatus: false,
+    companyName: false,
+    motivations: false,
+    financialHelpNotes: false,
+    coc: false
+  };
 
-  let formData = new FormData(form);
-  let legalAge = formData.get("legal_age") === "true";
-  let legalGuardian = {};
-  if (!legalAge) {
-    legalGuardian.firstName = formData.get("legal_guardian_first_name");
-    legalGuardian.lastName = formData.get("legal_guardian_last_name");
-    legalGuardian.email = formData.get("legal_guardian_email");
-  }
-  
-  let data = {
+  const formData = new FormData(form);
+  const legalAge = formData.get("legal_age") === "true";
+  const data = {
     type: "attendee",
     firstName: formData.get("first_name"),
     lastName: formData.get("last_name"),
     email: formData.get("email"),
     legalAge: legalAge,
-    legalGuardian: legalGuardian,
+    legalGuardianFirstName: legalAge
+      ? ""
+      : formData.get("legal_guardian_first_name"),
+    legalGuardianLastName: legalAge
+      ? ""
+      : formData.get("legal_guardian_last_name"),
+    legalGuardianEmail: legalAge ? "" : formData.get("legal_guardian_email"),
     os: formData.getAll("os"),
     experience: formData.getAll("experience"),
     experienceNotes: formData.get("experience_notes"),
@@ -121,7 +123,10 @@ function Request(form) {
     companyName: formData.get("company_name"),
     occupation: formData.get("occupation"),
     motivations: formData.get("motivations"),
-    dietary: formData.get("dietary") || "None"
+    dietary: formData.get("dietary") || "None",
+    financialHelp: formData.get("financial_help") === "true",
+    financialHelpNotes: formData.get("financial_help_notes"),
+    financialHelpAmount: formData.get("financial_help_amount")
   };
 
   return {
@@ -135,7 +140,7 @@ class MyForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      errors: new RequestErrors(),
+      errors: {},
       submitted: false
     };
   }
@@ -161,8 +166,8 @@ class MyForm extends React.Component {
 
   render() {
     const errors = this.state.errors;
-    const success = this.state.submitted;  
-    const hasErrors = Object.keys(errors).some(key => errors[key]);  
+    const success = this.state.submitted;
+    const hasErrors = Object.keys(errors).some(key => errors[key]);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -226,7 +231,7 @@ class MyForm extends React.Component {
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="legal_age" value="true" checked /> No
+                <input type="radio" name="legal_age" value="true" defaultChecked /> No
               </label>
             </div>
           </div>
@@ -276,7 +281,9 @@ class MyForm extends React.Component {
                   placeholder="Email"
                 />
               </div>
-              {errors.legalGuardianEmail && <p className="help is-danger">Invalid email</p>}
+              {errors.legalGuardianEmail && (
+                <p className="help is-danger">Invalid email</p>
+              )}
             </div>
           </div>
           <div className="field">
@@ -462,6 +469,68 @@ class MyForm extends React.Component {
           </div>
           <div className="field">
             <div className="control">
+              <label className="label" htmlFor="financial_help">
+                Do you need any financial help to attend the workshop?
+              </label>
+              <p className="help">
+                Unfortunately, our resources are limited and we cannot promise
+                that we will be able to provide financial help to attend the
+                workshop. However, we will try our best. If you are selected to
+                receive financial help, we will inform you about it in your
+                workshop acceptance email.
+              </p>
+              <label className="radio">
+                <input type="radio" name="financial_help" value="true" /> Yes
+              </label>
+              <br />
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="financial_help"
+                  value="false"
+                  defaultChecked
+                />{" "}
+                No
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label" htmlFor="financial_help_notes">
+                Please, explain why you need the financial help
+              </label>
+              <div className="control">
+                <textarea
+                  className={
+                    errors.financialHelpNotes
+                      ? "textarea is-danger"
+                      : "textarea"
+                  }
+                  name="financial_help_notes"
+                  placeholder=""
+                />
+              </div>
+              {errors.financialHelpNotes && (
+                <p className="help is-danger">
+                  This field is required if you said you needed financial aid
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="financial_help_amount">
+              How much money would you need?
+            </label>
+            <div className="control">
+              <input
+                className="input"
+                name="financial_help_amount"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
               <label className="checkbox">
                 <input type="checkbox" name="coc" value="accept" />
                 I've read and understood the Code of Conduct for the workshop
@@ -480,7 +549,7 @@ class MyForm extends React.Component {
           </div>
           {success && (
             <h5 className="subtitle is-5 is-success">
-              Thank you for registrating! You will receive an answer by the end
+              Thank you for registering! You will receive an answer by the end
               of May.
             </h5>
           )}
@@ -503,7 +572,7 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Participant registration</h1>
     </section>
-    <section className="hero is-primary is-bold is-medium">
+    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
@@ -526,7 +595,7 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
+    <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
@@ -536,7 +605,7 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="section is-hidden-touch is-hidden-tablet">
+    <section className="section">
       <div className="columns is-centered">
         <div className="column is-half">
           <MyForm />
