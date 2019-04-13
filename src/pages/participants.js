@@ -134,7 +134,6 @@ function Request(form) {
 class MyForm extends React.Component {
   constructor() {
     super();
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       errors: new RequestErrors(),
       submitted: false
