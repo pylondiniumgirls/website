@@ -6,13 +6,13 @@ import Navbar from "../components/navbar";
 
 function Request(form) {
   function validate() {
+    const nameRegex = /^[a-zA-Z\s]+$/;
+
     // Validate first name
-    const firstName = formData.get("first_name");
-    inputErrors.firstName = firstName.toLowerCase() === firstName.toUpperCase();
+    inputErrors.firstName = !nameRegex.test(formData.get("first_name"));
 
     // Validate last name
-    const lastName = formData.get("last_name");
-    inputErrors.lastName = lastName.toLowerCase() === lastName.toUpperCase();
+    inputErrors.lastName = !nameRegex.test(formData.get("last_name"));
 
     // Validate email
     const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
@@ -29,9 +29,6 @@ function Request(form) {
 
     // At least one os needs to be selected
     inputErrors.os = formData.getAll("os").length === 0;
-
-    // The information about the mentor is required
-    inputErrors.about = formData.get("about") === "";
 
     // If website info has been selected, the name of the mentor for
     // the website is required.
@@ -52,7 +49,6 @@ function Request(form) {
     companyName: false,
     djangoExperienceNotes: false,
     os: false,
-    about: false,
     websiteInfoName: false,
     coc: false
   };
@@ -190,7 +186,7 @@ class MyForm extends React.Component {
               />
               {errors.companyName && (
                 <p className="help is-danger">
-                Please provide the name of the company you work for
+                  Please provide the name of the company you work for
                 </p>
               )}
             </div>
@@ -234,7 +230,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label">
-                Which operating system do you prefer to work with?
+                Which operating system would you feel comfortable working with?
               </label>
               <label className="checkbox">
                 <input type="checkbox" name="os" value="macos" /> Mac OS X
@@ -257,30 +253,9 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label">
-                If there was not a group that will use the operative system you
-                have selected, would you be ok working with a Windows group?
-              </label>
-              <label className="radio">
-                <input type="radio" name="windows_accepted" value="true" /> Yes
-              </label>
-              <br />
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="windows_accepted"
-                  value="false"
-                  checked
-                />{" "}
-                No
-              </label>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Do you think you will have enough time before the event to help
-                your group (maximum 3 people) to install Python and Django on
-                their laptops through Google Hangouts / Skype / e-mail?
+                If needed, will you be available before the event to help your
+                group (maximum 3 people) to install Python and Django on their
+                laptops through Google Hangouts / Skype / e-mail?
               </label>
               <label className="radio">
                 <input
@@ -311,27 +286,14 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label">
-                Please, tell us a bit about yourself.
-              </label>
-              <div className="control">
-                <textarea
-                  className={errors.about ? "textarea is-danger" : "textarea"}
-                  name="about"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <label className="label">
-                Would you like to figure in the event website?
+                Would you like to feature on the event website?
               </label>
               <p className="help">
-                We would like to give you visibility in the webiste of the
+                We would like to give you visibility on the website of the
                 event, so we can show your contribution to the workshop and the
-                Python community in general. If your answer is 'Yes', we will
-                need you to also answer the next four questions. Otherwise, you
-                can skip them.
+                Python community. If your answer is 'Yes', we will need you to
+                also answer the next four questions. Otherwise, you can skip
+                them.
               </p>
               <label className="radio">
                 <input type="radio" name="website_info" value="true" /> Yes
@@ -344,9 +306,7 @@ class MyForm extends React.Component {
             </div>
           </div>
           <div className="field">
-            <label className="label">
-              What name would you like to use in the website?
-            </label>
+            <label className="label">Name to use on the website</label>
             <div className="control">
               <input
                 className={errors.websiteInfoName ? "input is-danger" : "input"}
@@ -361,12 +321,10 @@ class MyForm extends React.Component {
             </div>
           </div>
           <div className="field">
-            <label className="label">Personal picture (optional)</label>
+            <label className="label">Picture (optional)</label>
             <p className="help">
-              Let us know a URL where we can find a personal picture of you if
-              you want to have it associated to your name in the website.
-              Otherwise, leave this field in blank and we will put a placeholder
-              instead.
+              Let us know a URL where we can find a picture of you if you want
+              to have it associated to your name on the website.
             </p>
             <div className="control">
               <input
@@ -379,8 +337,7 @@ class MyForm extends React.Component {
           <div className="field">
             <label className="label">Twitter (optional)</label>
             <p className="help">
-              Let us know you Twitter handler if you would like to have a link
-              underneath your profile. Otherwise, leave this field blank.
+              Let us know your Twitter handler to link to your profile.
             </p>
             <div className="control">
               <input
@@ -394,11 +351,20 @@ class MyForm extends React.Component {
             <label className="label">Web page (optional)</label>
             <p className="help">
               Let us know your web page, your Linkedin profile, Github user...
-              to have a link underneath your profile. Otherwise, leave this
-              field blank.
+              to have a link underneath your profile.
             </p>
             <div className="control">
               <input className="input" name="website_info_url" type="text" />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label">
+                Is there anything else you would like to tell us about yourself?
+              </label>
+              <div className="control">
+                <textarea className="textarea" name="about" />
+              </div>
             </div>
           </div>
           <div className="field">
@@ -421,7 +387,7 @@ class MyForm extends React.Component {
           </div>
           {success && (
             <h5 className="subtitle is-5 is-success">
-              Thank you for registrating! You will receive an answer by the end
+              Thank you for registering! You will receive an answer by the end
               of May.
             </h5>
           )}
@@ -471,6 +437,9 @@ export default () => (
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
+          <h3 className="subtitle is-3 has-text-centered">
+            The application will close on 19th May.
+          </h3>
         </div>
       </div>
     </section>
