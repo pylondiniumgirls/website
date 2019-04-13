@@ -4,19 +4,50 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
+function RequestErrors() {
+  return {
+    firstName: false,
+    lastName: false,
+    email: false,
+    legalGuardianfirName: false,
+    legalGuardianLastName: false,
+    legalGuardianEmail: false,
+    os: false,
+    experience: false,
+    experienceNotes: false,
+    workingStatus: false,
+    companyName: false,
+    motivations: false,
+    coc: false
+  };
+};
+
 function Request(form) {
   function validate() {
+    const namesRegex = /^[a-zA-Z\s]+$/;
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+
     // Validate first name
-    const firstName = formData.get("first_name");
-    inputErrors.firstName = firstName.toLowerCase() === firstName.toUpperCase();
+    inputErrors.firstName = !namesRegex.test(formData.get("first_name"));
 
     // Validate last name
-    const lastName = formData.get("last_name");
-    inputErrors.lastName = lastName.toLowerCase() === lastName.toUpperCase();
+    inputErrors.lastName = !namesRegex.test(formData.get("last_name"));
 
     // Validate email
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     inputErrors.email = !emailRegex.test(formData.get("email"));
+
+    const legalAge = formData.get("legal_age") === "true";
+    if (!legalAge) {
+      inputErrors.legalGuardianFirstName = !namesRegex.test(
+        formData.get("legal_guardian_first_name")
+      );
+      inputErrors.legalGuardianLastName = !namesRegex.test(
+        formData.get("legal_guardian_last_name")
+      );
+      inputErrors.legalGuardianEmail = !emailRegex.test(
+        formData.get("legal_guardian_email")
+      );
+    }
 
     // It is compulsory to select an os
     inputErrors.os = formData.getAll("os").length === 0;
@@ -42,7 +73,7 @@ function Request(form) {
       // If they have selected "Other", make sure that they are provided
       // the name of the company.
       const companyName = formData.get("company_name");
-      if ((workingStatus[0] === "other") && (companyName === "")) {
+      if (workingStatus[0] === "other" && companyName === "") {
         inputErrors.companyName = true;
       } else {
         inputErrors.companyName = false;
@@ -65,26 +96,24 @@ function Request(form) {
     return true;
   }
 
-  let inputErrors = {
-    firstName: false,
-    lastName: false,
-    email: false,
-    os: false,
-    experience: false,
-    experienceNotes: false,
-    workingStatus: false,
-    companyName: false,
-    motivations: false,
-    coc: false
-  };
+  let inputErrors = new RequestErrors();
 
   let formData = new FormData(form);
+  let legalAge = formData.get("legal_age") === "true";
+  let legalGuardian = {};
+  if (!legalAge) {
+    legalGuardian.firstName = formData.get("legal_guardian_first_name");
+    legalGuardian.lastName = formData.get("legal_guardian_last_name");
+    legalGuardian.email = formData.get("legal_guardian_email");
+  }
+  
   let data = {
     type: "attendee",
     firstName: formData.get("first_name"),
     lastName: formData.get("last_name"),
     email: formData.get("email"),
-    legalAge: formData.get("legal_age") === "true",
+    legalAge: legalAge,
+    legalGuardian: legalGuardian,
     os: formData.getAll("os"),
     experience: formData.getAll("experience"),
     experienceNotes: formData.get("experience_notes"),
@@ -107,12 +136,12 @@ class MyForm extends React.Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      errors: {},
+      errors: new RequestErrors(),
       submitted: false
     };
   }
 
-  const handleSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault();
     let request = new Request(event.target);
 
@@ -129,12 +158,12 @@ class MyForm extends React.Component {
     }
 
     this.setState({ errors: request.errors });
-  }
+  };
 
   render() {
     const errors = this.state.errors;
-    const success = this.state.submitted;
-    const hasErrors = Object.keys(errors).some(key => errors[key]);
+    const success = this.state.submitted;  
+    const hasErrors = Object.keys(errors).some(key => errors[key]);  
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -194,12 +223,61 @@ class MyForm extends React.Component {
                 If you are under 18, you will need to bring a legal guardian
               </p>
               <label className="radio">
-                <input type="radio" name="legal_age" value="true" checked /> Yes
+                <input type="radio" name="legal_age" value="false" /> Yes
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="legal_age" value="false" /> No
+                <input type="radio" name="legal_age" value="true" checked /> No
               </label>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="label" htmlFor="legal_guardian">
+                If you answered 'Yes' to the previous question, please provide
+                the details for your legal guardian
+              </label>
+              <div className="control">
+                <input
+                  className={
+                    errors.legalGuardianFirstName ? "input is-danger" : "input"
+                  }
+                  name="legal_guardian_first_name"
+                  type="text"
+                  placeholder="First name"
+                />
+              </div>
+              {errors.legalGuardianFirstName && (
+                <p className="help is-danger">
+                  Invalid first name: the first name can only have letters
+                </p>
+              )}
+              <div className="control">
+                <input
+                  className={
+                    errors.legalGuardianLastName ? "input is-danger" : "input"
+                  }
+                  name="legal_guardian_last_name"
+                  type="text"
+                  placeholder="Last name"
+                />
+              </div>
+              {errors.legalGuardianLastName && (
+                <p className="help is-danger">
+                  Invalid last name: the last name can only have letters
+                </p>
+              )}
+              <div className="control">
+                <input
+                  className={
+                    errors.legalGuardianEmail ? "input is-danger" : "input"
+                  }
+                  name="legal_guardian_email"
+                  type="text"
+                  placeholder="Email"
+                />
+              </div>
+              {errors.legalGuardianEmail && <p className="help is-danger">Invalid email</p>}
             </div>
           </div>
           <div className="field">
@@ -296,13 +374,22 @@ class MyForm extends React.Component {
                 What is your current working status?
               </label>
               <label className="checkbox">
-                <input type="checkbox" name="working_status" value="unemployed" />{" "}
+                <input
+                  type="checkbox"
+                  name="working_status"
+                  value="unemployed"
+                />{" "}
                 I am unemployed
               </label>
               <br />
               <label className="checkbox">
                 <input type="checkbox" name="working_status" value="student" />{" "}
                 I am a student
+              </label>
+              <br />
+              <label className="checkbox">
+                <input type="checkbox" name="working_status" value="student" />{" "}
+                I am retired
               </label>
               <br />
               <label className="checkbox">
@@ -333,10 +420,14 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="occupation">
-                Please, tell us a bit more about what you study or what you work as.
+                Please, tell us a bit more about your studies or occupation.
               </label>
               <div className="control">
-                <textarea className="textarea" name="occupation" placeholder="" />
+                <textarea
+                  className="textarea"
+                  name="occupation"
+                  placeholder=""
+                />
               </div>
             </div>
           </div>
@@ -390,8 +481,8 @@ class MyForm extends React.Component {
           </div>
           {success && (
             <h5 className="subtitle is-5 is-success">
-              Thank you for registrating! You will receive an answer by the end of
-              May.
+              Thank you for registrating! You will receive an answer by the end
+              of May.
             </h5>
           )}
           {hasErrors && (
@@ -413,7 +504,7 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Participant registration</h1>
     </section>
-    <section className="hero is-primary is-bold is-medium">
+    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
@@ -436,14 +527,17 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
+    <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
+          <h3 className="subtitle is-3 has-text-centered">
+            The application process will close on 19 May.
+          </h3>
         </div>
       </div>
     </section>
-    <section className="section is-hidden-touch is-hidden-tablet">
+    <section className="section">
       <div className="columns is-centered">
         <div className="column is-half">
           <MyForm />
