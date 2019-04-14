@@ -4,112 +4,106 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-function Request(form) {
-  function validate() {
-    const nameRegex = /^[a-zA-Z\s]+$/;
+class Request {
+  nameRegex = /^[a-zA-Z\s]+$/;
+  emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 
-    // Validate first name
-    inputErrors.firstName = !nameRegex.test(formData.get("first_name"));
+  constructor(form) {
+    this.formData = new FormData(form);
+    this.errors = {
+      firstName: false,
+      lastName: false,
+      email: false,
+      companyName: false,
+      djangoExperienceNotes: false,
+      os: false,
+      websiteInfoName: false,
+      coc: false
+    };
+  }
 
-    // Validate last name
-    inputErrors.lastName = !nameRegex.test(formData.get("last_name"));
+  get data() {
+    let data = {
+      type: "mentor",
+      firstName: this.formData.get("first_name"),
+      lastName: this.formData.get("last_name"),
+      email: this.formData.get("email"),
+      companyName: this.formData.get("company_name"),
+      djangoExperience: this.formData.get("django_experience") === "true",
+      djangoExperienceNotes: this.formData.get("django_experience_notes"),
+      os: this.formData.getAll("os"),
+      windowsAccepted: this.formData.get("windows_accepted") === "true",
+      canHelpInstalling: this.formData.get("can_help_installing") === "true",
+      dietary: this.formData.get("dietary") || "None",
+      about: this.formData.get("about")
+    };
 
-    // Validate email
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-    inputErrors.email = !emailRegex.test(formData.get("email"));
+    if (this.formData.get("website_info") === "true") {
+      let websiteInfo = {
+        name: this.formData.get("website_info_name")
+      };
+  
+      let websiteInfoPicture = this.formData.get("website_info_picture");
+      if (websiteInfoPicture) {
+        websiteInfo["picture"] = websiteInfoPicture;
+      }
+  
+      let websiteInfoTwitter = this.formData.get("website_info_twitter");
+      if (websiteInfoTwitter) {
+        websiteInfo["twitter"] = websiteInfoTwitter;
+      }
+  
+      let websiteInfoUrl = this.formData.get("website_info_url");
+      if (websiteInfoUrl) {
+        websiteInfo["website"] = websiteInfoUrl;
+      }
+  
+      data["website_info"] = websiteInfo;
+    }
 
-    inputErrors.companyName = formData.get("company_name") === "";
+    return data;
+  };
+
+  isValid() {
+    this.errors.firstName = !this.nameRegex.test(this.formData.get("first_name"));
+    this.errors.lastName = !this.nameRegex.test(this.formData.get("last_name"));
+    this.errors.email = !this.emailRegex.test(this.formData.get("email"));
+
+    this.errors.companyName = this.formData.get("company_name") === "";
 
     // If the mentor has django experience, teling us about their django
     // experience is required.
-    if (formData.get("django_experience") === "true") {
-      inputErrors.djangoExperienceNotes =
-        formData.get("django_experience_notes") === "";
+    if (this.formData.get("django_experience") === "true") {
+      this.errors.djangoExperienceNotes =
+        this.formData.get("django_experience_notes") === "";
     }
 
     // At least one os needs to be selected
-    inputErrors.os = formData.getAll("os").length === 0;
+    this.errors.os = this.formData.getAll("os").length === 0;
 
     // If website info has been selected, the name of the mentor for
     // the website is required.
-    if (formData.get("website_info") === "true") {
-      inputErrors.websiteInfoName = formData.get("website_info_name") === "";
+    if (this.formData.get("website_info") === "true") {
+      this.errors.websiteInfoName = this.formData.get("website_info_name") === "";
     }
 
     // It is required to read and accept the coc
-    inputErrors.coc = formData.get("coc") !== "accept";
+    this.errors.coc = this.formData.get("coc") !== "accept";
 
-    return !Object.keys(inputErrors).some(key => inputErrors[key]);
+    return !Object.keys(this.errors).some(key => this.errors[key]);
   }
-
-  let inputErrors = {
-    firstName: false,
-    lastName: false,
-    email: false,
-    companyName: false,
-    djangoExperienceNotes: false,
-    os: false,
-    websiteInfoName: false,
-    coc: false
-  };
-
-  let formData = new FormData(form);
-  let data = {
-    type: "mentor",
-    firstName: formData.get("first_name"),
-    lastName: formData.get("last_name"),
-    email: formData.get("email"),
-    companyName: formData.get("company_name"),
-    djangoExperience: formData.get("django_experience") === "true",
-    djangoExperienceNotes: formData.get("django_experience_notes"),
-    os: formData.getAll("os"),
-    windowsAccepted: formData.get("windows_accepted") === "true",
-    canHelpInstalling: formData.get("can_help_installing") === "true",
-    dietary: formData.get("dietary") || "None",
-    about: formData.get("about")
-  };
-
-  if (formData.get("website_info") === "true") {
-    let websiteInfo = {
-      name: formData.get("website_info_name")
-    };
-
-    let websiteInfoPicture = formData.get("website_info_picture");
-    if (websiteInfoPicture) {
-      websiteInfo["picture"] = websiteInfoPicture;
-    }
-
-    let websiteInfoTwitter = formData.get("website_info_twitter");
-    if (websiteInfoTwitter) {
-      websiteInfo["twitter"] = websiteInfoTwitter;
-    }
-
-    let websiteInfoUrl = formData.get("website_info_url");
-    if (websiteInfoUrl) {
-      websiteInfo["website"] = websiteInfoUrl;
-    }
-
-    data["website_info"] = websiteInfo;
-  }
-
-  return {
-    data: data,
-    errors: inputErrors,
-    isValid: validate
-  };
 }
 
 class MyForm extends React.Component {
   constructor() {
     super();
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       errors: {},
       submitted: false
     };
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
     let request = new Request(event.target);
 
@@ -132,6 +126,7 @@ class MyForm extends React.Component {
     const errors = this.state.errors;
     const success = this.state.submitted;
     const hasErrors = Object.keys(errors).some(key => errors[key]);
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -201,7 +196,7 @@ class MyForm extends React.Component {
                   type="radio"
                   name="django_experience"
                   value="true"
-                  checked
+                  defaultChecked
                 />{" "}
                 Yes
               </label>
@@ -230,7 +225,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label">
-                Which operating system would you feel comfortable working with?
+                Which operating systems would you feel comfortable working with?
               </label>
               <label className="checkbox">
                 <input type="checkbox" name="os" value="macos" /> Mac OS X
@@ -262,7 +257,7 @@ class MyForm extends React.Component {
                   type="radio"
                   name="can_help_installing"
                   value="true"
-                  checked
+                  defaultChecked
                 />{" "}
                 Yes
               </label>
@@ -300,7 +295,7 @@ class MyForm extends React.Component {
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="website_info" value="false" checked />{" "}
+                <input type="radio" name="website_info" value="false" defaultChecked />{" "}
                 No
               </label>
             </div>
@@ -410,7 +405,7 @@ export default () => (
     <section className="section">
       <h1 className="title has-text-centered">Mentor registration</h1>
     </section>
-    <section className="hero is-primary is-bold is-medium">
+    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">
@@ -433,7 +428,7 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="hero is-primary is-bold is-medium is-hidden-touch is-hidden-tablet">
+    <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
           <h1 className="title has-text-centered">The registration is open!</h1>
@@ -443,7 +438,7 @@ export default () => (
         </div>
       </div>
     </section>
-    <section className="section is-hidden-touch is-hidden-tablet">
+    <section className="section">
       <div className="columns is-centered">
         <div className="column is-half">
           <MyForm />
