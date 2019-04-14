@@ -4,137 +4,133 @@ import { FaTwitter } from "react-icons/fa";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-function Request(form) {
-  function validate() {
-    const namesRegex = /^[a-zA-Z\s]+$/;
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+class Request {
+  namesRegex = /^[a-zA-Z\s]+$/;
+  emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 
-    // Validate first name
-    inputErrors.firstName = !namesRegex.test(formData.get("first_name"));
+  constructor(form) {
+    this.formData = new FormData(form);
 
-    // Validate last name
-    inputErrors.lastName = !namesRegex.test(formData.get("last_name"));
+    this.errors = {
+      firstName: false,
+      lastName: false,
+      email: false,
+      legalGuardianFirstName: false,
+      legalGuardianLastName: false,
+      legalGuardianEmail: false,
+      os: false,
+      experience: false,
+      experienceNotes: false,
+      workingStatus: false,
+      companyName: false,
+      motivations: false,
+      financialHelpNotes: false,
+      coc: false
+    };
+  }
 
-    // Validate email
-    inputErrors.email = !emailRegex.test(formData.get("email"));
+  get data() {
+    const legalAge = this.formData.get("legal_age") === "true";
 
-    const legalAge = formData.get("legal_age") === "true";
+    return {
+      type: "attendee",
+      firstName: this.formData.get("first_name"),
+      lastName: this.formData.get("last_name"),
+      email: this.formData.get("email"),
+      legalAge: legalAge,
+      legalGuardianFirstName: legalAge
+        ? ""
+        : this.formData.get("legal_guardian_first_name"),
+      legalGuardianLastName: legalAge
+        ? ""
+        : this.formData.get("legal_guardian_last_name"),
+      legalGuardianEmail: legalAge ? "" : this.formData.get("legal_guardian_email"),
+      os: this.formData.getAll("os"),
+      experience: this.formData.getAll("experience"),
+      experienceNotes: this.formData.get("experience_notes"),
+      workingStatus: this.formData.getAll("working_status")[0],
+      companyName: this.formData.get("company_name"),
+      occupation: this.formData.get("occupation"),
+      motivations: this.formData.get("motivations"),
+      dietary: this.formData.get("dietary") || "None",
+      financialHelp: this.formData.get("financial_help") === "true",
+      financialHelpNotes: this.formData.get("financial_help_notes"),
+      financialHelpAmount: this.formData.get("financial_help_amount")
+    };
+  }
+
+  isValid() {
+    this.errors.firstName = !this.namesRegex.test(this.formData.get("first_name"));
+    this.errors.lastName = !this.namesRegex.test(this.formData.get("last_name"));
+    this.errors.email = !this.emailRegex.test(this.formData.get("email"));
+
+    const legalAge = this.formData.get("legal_age") === "true";
     if (!legalAge) {
-      inputErrors.legalGuardianFirstName = !namesRegex.test(
-        formData.get("legal_guardian_first_name")
+      this.errors.legalGuardianFirstName = !this.namesRegex.test(
+        this.formData.get("legal_guardian_first_name")
       );
-      inputErrors.legalGuardianLastName = !namesRegex.test(
-        formData.get("legal_guardian_last_name")
+      this.errors.legalGuardianLastName = !this.namesRegex.test(
+        this.formData.get("legal_guardian_last_name")
       );
-      inputErrors.legalGuardianEmail = !emailRegex.test(
-        formData.get("legal_guardian_email")
+      this.errors.legalGuardianEmail = !this.emailRegex.test(
+        this.formData.get("legal_guardian_email")
       );
     }
 
     // It is compulsory to select an os
-    inputErrors.os = formData.getAll("os").length === 0;
+    this.errors.os = this.formData.getAll("os").length === 0;
 
     // It is compulsory to select a level of experience
-    const experience = formData.getAll("experience");
-    inputErrors.experience = experience.length === 0;
+    const experience = this.formData.getAll("experience");
+    this.errors.experience = experience.length === 0;
 
     // If the experience is not beginner, it is compulsory to say something
     // about this experience
     if (experience.filter(elem => elem !== "beginner").length !== 0) {
-      inputErrors.experienceNotes = formData.get("experience_notes") === "";
+      this.errors.experienceNotes = this.formData.get("experience_notes") === "";
     } else {
-      inputErrors.experienceNotes = false;
+      this.errors.experienceNotes = false;
     }
 
     // Check that they have selected only one checkbox in the occupation
     // field
-    const workingStatus = formData.getAll("working_status");
+    const workingStatus = this.formData.getAll("working_status");
     if (workingStatus.length !== 1) {
-      inputErrors.workingStatus = true;
+      this.errors.workingStatus = true;
     } else {
       // If they have selected "Other", make sure that they are provided
       // the name of the company.
-      const companyName = formData.get("company_name");
+      const companyName = this.formData.get("company_name");
       if (workingStatus[0] === "other" && companyName === "") {
-        inputErrors.companyName = true;
+        this.errors.companyName = true;
       } else {
-        inputErrors.companyName = false;
+        this.errors.companyName = false;
       }
-      inputErrors.workingStatus = false;
+      this.errors.workingStatus = false;
     }
 
     // It is required to explain the motivations for the workshop
-    inputErrors.motivations = formData.get("motivations") === "";
+    this.errors.motivations = this.formData.get("motivations") === "";
 
     // It is required to read and accept the coc
-    inputErrors.coc = formData.get("coc") !== "accept";
+    this.errors.coc = this.formData.get("coc") !== "accept";
 
     // If they are asking for financial aid, it is required to explain the reason
-    if (formData.get("financial_help") === "true") {
-      inputErrors.financialHelpNotes =
-        formData.get("financial_help_notes") === "";
+    if (this.formData.get("financial_help") === "true") {
+      this.errors.financialHelpNotes =
+        this.formData.get("financial_help_notes") === "";
     }
 
-    for (let errorType in inputErrors) {
-      if (inputErrors[errorType]) {
+    for (let errorType in this.errors) {
+      if (this.errors[errorType]) {
         return false;
       }
     }
 
     return true;
   }
-
-  let inputErrors = {
-    firstName: false,
-    lastName: false,
-    email: false,
-    legalGuardianFirstName: false,
-    legalGuardianLastName: false,
-    legalGuardianEmail: false,
-    os: false,
-    experience: false,
-    experienceNotes: false,
-    workingStatus: false,
-    companyName: false,
-    motivations: false,
-    financialHelpNotes: false,
-    coc: false
-  };
-
-  const formData = new FormData(form);
-  const legalAge = formData.get("legal_age") === "true";
-  const data = {
-    type: "attendee",
-    firstName: formData.get("first_name"),
-    lastName: formData.get("last_name"),
-    email: formData.get("email"),
-    legalAge: legalAge,
-    legalGuardianFirstName: legalAge
-      ? ""
-      : formData.get("legal_guardian_first_name"),
-    legalGuardianLastName: legalAge
-      ? ""
-      : formData.get("legal_guardian_last_name"),
-    legalGuardianEmail: legalAge ? "" : formData.get("legal_guardian_email"),
-    os: formData.getAll("os"),
-    experience: formData.getAll("experience"),
-    experienceNotes: formData.get("experience_notes"),
-    workingStatus: formData.getAll("working_status")[0],
-    companyName: formData.get("company_name"),
-    occupation: formData.get("occupation"),
-    motivations: formData.get("motivations"),
-    dietary: formData.get("dietary") || "None",
-    financialHelp: formData.get("financial_help") === "true",
-    financialHelpNotes: formData.get("financial_help_notes"),
-    financialHelpAmount: formData.get("financial_help_amount")
-  };
-
-  return {
-    data: data,
-    errors: inputErrors,
-    isValid: validate
-  };
 }
+
 
 class MyForm extends React.Component {
   constructor() {
