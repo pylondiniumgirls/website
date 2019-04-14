@@ -62,6 +62,9 @@ const Navbar = () => {
               <Link to="/people">People</Link>
             </span>
             <span className="navbar-item">
+              <Link to="/coc">COC</Link>
+            </span>
+            <span className="navbar-item">
               <a
                 href="https://twitter.com/pylondiniumgir1/"
                 target="_blank"
