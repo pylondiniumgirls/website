@@ -50,7 +50,7 @@ class Request {
       os: this.formData.getAll("os"),
       experience: this.formData.getAll("experience"),
       experienceNotes: this.formData.get("experience_notes"),
-      workingStatus: this.formData.getAll("working_status")[0],
+      workingStatus: this.formData.getAll("working_status"),
       companyName: this.formData.get("company_name"),
       occupation: this.formData.get("occupation"),
       motivations: this.formData.get("motivations"),
@@ -101,14 +101,14 @@ class Request {
 
     // Check that they have selected only one checkbox in the occupation
     // field
-    const workingStatus = this.formData.getAll("working_status");
-    if (workingStatus.length !== 1) {
+    const workingStatus = this.formData.get("working_status");
+    if (!workingStatus) {
       this.errors.workingStatus = true;
     } else {
       // If they have selected "Other", make sure that they are provided
       // the name of the company.
       const companyName = this.formData.get("company_name");
-      if (workingStatus[0] === "other" && companyName === "") {
+      if (workingStatus === "other" && companyName === "") {
         this.errors.companyName = true;
       } else {
         this.errors.companyName = false;
@@ -395,27 +395,27 @@ class MyForm extends React.Component {
               <label className="label" htmlFor="working_status">
                 What is your current working status? *
               </label>
-              <label className="checkbox">
+              <label className="radio">
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="working_status"
                   value="unemployed"
                 />{" "}
                 I am unemployed
               </label>
               <br />
-              <label className="checkbox">
-                <input type="checkbox" name="working_status" value="student" />{" "}
+              <label className="radio">
+                <input type="radio" name="working_status" value="student" />{" "}
                 I am a student
               </label>
               <br />
-              <label className="checkbox">
-                <input type="checkbox" name="working_status" value="student" />{" "}
+              <label className="radio">
+                <input type="radio" name="working_status" value="student" />{" "}
                 I am retired
               </label>
               <br />
-              <label className="checkbox">
-                <input type="checkbox" name="working_status" value="other" />{" "}
+              <label className="radio">
+                <input type="radio" name="working_status" value="other" />{" "}
                 Other
               </label>
               <div className="control">
@@ -429,8 +429,8 @@ class MyForm extends React.Component {
               </div>
               {errors.workingStatus && (
                 <p className="help is-danger">
-                  Please select the checkbox that best applies to your current
-                  working status (only one).
+                  Please select the option that best applies to your current
+                  working status.
                 </p>
               )}
               {errors.companyName && (
