@@ -44,7 +44,9 @@ class Request {
       legalGuardianLastName: legalAge
         ? ""
         : this.formData.get("legal_guardian_last_name"),
-      legalGuardianEmail: legalAge ? "" : this.formData.get("legal_guardian_email"),
+      legalGuardianEmail: legalAge
+        ? ""
+        : this.formData.get("legal_guardian_email"),
       os: this.formData.getAll("os"),
       experience: this.formData.getAll("experience"),
       experienceNotes: this.formData.get("experience_notes"),
@@ -60,8 +62,12 @@ class Request {
   }
 
   isValid() {
-    this.errors.firstName = !this.namesRegex.test(this.formData.get("first_name"));
-    this.errors.lastName = !this.namesRegex.test(this.formData.get("last_name"));
+    this.errors.firstName = !this.namesRegex.test(
+      this.formData.get("first_name")
+    );
+    this.errors.lastName = !this.namesRegex.test(
+      this.formData.get("last_name")
+    );
     this.errors.email = !this.emailRegex.test(this.formData.get("email"));
 
     const legalAge = this.formData.get("legal_age") === "true";
@@ -87,7 +93,8 @@ class Request {
     // If the experience is not beginner, it is compulsory to say something
     // about this experience
     if (experience.filter(elem => elem !== "beginner").length !== 0) {
-      this.errors.experienceNotes = this.formData.get("experience_notes") === "";
+      this.errors.experienceNotes =
+        this.formData.get("experience_notes") === "";
     } else {
       this.errors.experienceNotes = false;
     }
@@ -131,7 +138,6 @@ class Request {
   }
 }
 
-
 class MyForm extends React.Component {
   constructor() {
     super();
@@ -174,6 +180,7 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
+                maxLength="50"
                 className={errors.firstName ? "input is-danger" : "input"}
                 name="first_name"
                 type="text"
@@ -191,6 +198,7 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
+                maxLength="50"
                 className={errors.lastName ? "input is-danger" : "input"}
                 name="last_name"
                 type="text"
@@ -208,6 +216,7 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
+                maxLength="50"
                 className={errors.email ? "input is-danger" : "input"}
                 name="email"
                 type="email"
@@ -228,7 +237,13 @@ class MyForm extends React.Component {
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="legal_age" value="true" defaultChecked /> No
+                <input
+                  type="radio"
+                  name="legal_age"
+                  value="true"
+                  defaultChecked
+                />{" "}
+                No
               </label>
             </div>
           </div>
@@ -240,6 +255,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <input
+                  maxLength="50"
                   className={
                     errors.legalGuardianFirstName ? "input is-danger" : "input"
                   }
@@ -255,6 +271,7 @@ class MyForm extends React.Component {
               )}
               <div className="control">
                 <input
+                  maxLength="50"
                   className={
                     errors.legalGuardianLastName ? "input is-danger" : "input"
                   }
@@ -270,6 +287,7 @@ class MyForm extends React.Component {
               )}
               <div className="control">
                 <input
+                  maxLength="50"
                   className={
                     errors.legalGuardianEmail ? "input is-danger" : "input"
                   }
@@ -356,6 +374,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
+                  maxLength="250"
                   className={
                     errors.experienceNotes ? "textarea is-danger" : "textarea"
                   }
@@ -401,6 +420,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <input
+                  maxLength="50"
                   className={errors.companyName ? "input is-danger" : "input"}
                   name="company_name"
                   type="text"
@@ -427,6 +447,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
+                  maxLength="250"
                   className="textarea"
                   name="occupation"
                   placeholder=""
@@ -442,6 +463,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
+                  maxLength="250"
                   className={
                     errors.motivations ? "textarea is-danger" : "textarea"
                   }
@@ -460,7 +482,12 @@ class MyForm extends React.Component {
                 Do you have any dietary requirements?
               </label>
               <div className="control">
-                <textarea className="textarea" name="dietary" placeholder="" />
+                <textarea
+                  maxLength="250"
+                  className="textarea"
+                  name="dietary"
+                  placeholder=""
+                />
               </div>
             </div>
           </div>
@@ -498,6 +525,7 @@ class MyForm extends React.Component {
               </label>
               <div className="control">
                 <textarea
+                  maxLength="250"
                   className={
                     errors.financialHelpNotes
                       ? "textarea is-danger"
@@ -520,6 +548,7 @@ class MyForm extends React.Component {
             </label>
             <div className="control">
               <input
+                maxLength="70"
                 className="input"
                 name="financial_help_amount"
                 type="text"
