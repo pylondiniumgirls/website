@@ -164,12 +164,13 @@ class MyForm extends React.Component {
     const errors = this.state.errors;
     const success = this.state.submitted;
     const hasErrors = Object.keys(errors).some(key => errors[key]);
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label" htmlFor="first_name">
-              First Name
+              First Name *
             </label>
             <div className="control">
               <input
@@ -186,7 +187,7 @@ class MyForm extends React.Component {
           </div>
           <div className="field">
             <label className="label" htmlFor="last_name">
-              Last Name
+              Last Name *
             </label>
             <div className="control">
               <input
@@ -203,7 +204,7 @@ class MyForm extends React.Component {
           </div>
           <div className="field">
             <label className="label" htmlFor="email">
-              Email
+              Email *
             </label>
             <div className="control">
               <input
@@ -217,7 +218,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="legal_age">
-                Are you under 18?
+                Are you under 18? *
               </label>
               <p className="help">
                 If you are under 18, you will need to bring a legal guardian
@@ -285,7 +286,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="os">
-                Which operating system do you use?
+                Which operating system do you use? *
               </label>
               <label className="checkbox">
                 <input type="checkbox" name="os" value="macos" /> Mac OS X
@@ -308,7 +309,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="experience">
-                What is your current level of experience with programming?
+                What is your current level of experience with programming? *
               </label>
               <label className="checkbox">
                 <input type="checkbox" name="experience" value="beginner" /> I'm
@@ -373,7 +374,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="working_status">
-                What is your current working status?
+                What is your current working status? *
               </label>
               <label className="checkbox">
                 <input
@@ -437,7 +438,7 @@ class MyForm extends React.Component {
             <div className="control">
               <label className="label" htmlFor="motivations">
                 Why are you interested in attending the workshop? Tell us a bit
-                about your motivations and aspirations.
+                about your motivations and aspirations. *
               </label>
               <div className="control">
                 <textarea
@@ -466,7 +467,7 @@ class MyForm extends React.Component {
           <div className="field">
             <div className="control">
               <label className="label" htmlFor="financial_help">
-                Do you need any financial help to attend the workshop?
+                Do you need any financial help to attend the workshop? *
               </label>
               <p className="help">
                 Unfortunately, our resources are limited and we cannot promise
@@ -529,7 +530,7 @@ class MyForm extends React.Component {
             <div className="control">
               <label className="checkbox">
                 <input type="checkbox" name="coc" value="accept" />
-                I've read and understood the Code of Conduct for the workshop
+                I've read and understood the Code of Conduct for the workshop *
               </label>
               {errors.coc && (
                 <p className="help is-danger">
