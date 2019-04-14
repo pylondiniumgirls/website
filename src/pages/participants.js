@@ -5,7 +5,6 @@ import { navigate } from "gatsby";
 import Helmet from "../components/helmet";
 import Navbar from "../components/navbar";
 
-
 class Request {
   namesRegex = /^[a-zA-Z\s]+$/;
   emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
@@ -82,7 +81,9 @@ class Request {
 
     // If the experience is not beginner, it is compulsory to say something
     // about this experience
-    if (this.formData.experience.filter(elem => elem !== "beginner").length !== 0) {
+    if (
+      this.formData.experience.filter(elem => elem !== "beginner").length !== 0
+    ) {
       this.errors.experienceNotes = this.formData.experience_notes === "";
     } else {
       this.errors.experienceNotes = false;
@@ -106,7 +107,8 @@ class Request {
 
     // If they are asking for financial aid, it is required to explain the reason
     if (this.formData.financial_help === "true") {
-      this.errors.financialHelpNotes = this.formData.financial_help_notes === "";
+      this.errors.financialHelpNotes =
+        this.formData.financial_help_notes === "";
     }
 
     // It is required to read and accept the coc
@@ -128,12 +130,12 @@ class MyForm extends React.Component {
     this.state = {
       form: {},
       errors: {},
-      submitError: false,
+      submitError: false
     };
   }
 
   handleChange = event => {
-    if ((event.target.type === "radio") && !event.target.checked) {
+    if (event.target.type === "radio" && !event.target.checked) {
       return;
     }
 
@@ -144,7 +146,7 @@ class MyForm extends React.Component {
   };
 
   handleListChange = event => {
-    let form = {...this.state.form};
+    let form = { ...this.state.form };
 
     if (event.target.checked) {
       if (form[event.target.name]) {
@@ -165,11 +167,11 @@ class MyForm extends React.Component {
   };
 
   handleCocChange = event => {
-    let form = {...this.state.form};
+    let form = { ...this.state.form };
     form[event.target.name] = event.target.checked;
 
     this.setState({ form: form });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -183,14 +185,14 @@ class MyForm extends React.Component {
       xhr.withCredentials = true;
       xhr.send(JSON.stringify(request.data));
 
-      xhr.onload = (_) => {
+      xhr.onload = _ => {
         if (xhr.status === 200) {
           navigate("/form-submitted");
         } else {
           this.setState({ submitError: true });
         }
       };
-      xhr.onerror = (_) => this.setState({ submitError: true });
+      xhr.onerror = _ => this.setState({ submitError: true });
     } else {
       this.setState({ errors: request.errors });
     }
@@ -267,7 +269,13 @@ class MyForm extends React.Component {
                 If you are under 18, you will need to bring a legal guardian
               </p>
               <label className="radio">
-                <input type="radio" name="legal_age" value="false" onChange={this.handleChange} /> Yes
+                <input
+                  type="radio"
+                  name="legal_age"
+                  value="false"
+                  onChange={this.handleChange}
+                />{" "}
+                Yes
               </label>
               <br />
               <label className="radio">
@@ -352,15 +360,33 @@ class MyForm extends React.Component {
                 Which operating system do you use? *
               </label>
               <label className="checkbox">
-                <input type="checkbox" name="os" value="macos" onChange={this.handleListChange} /> Mac OS X
+                <input
+                  type="checkbox"
+                  name="os"
+                  value="macos"
+                  onChange={this.handleListChange}
+                />{" "}
+                Mac OS X
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="os" value="windows" onChange={this.handleListChange} /> Windows
+                <input
+                  type="checkbox"
+                  name="os"
+                  value="windows"
+                  onChange={this.handleListChange}
+                />{" "}
+                Windows
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="os" value="linux" onChange={this.handleListChange} /> Linux
+                <input
+                  type="checkbox"
+                  name="os"
+                  value="linux"
+                  onChange={this.handleListChange}
+                />{" "}
+                Linux
               </label>
               {errors.os && (
                 <p className="help is-danger">
@@ -375,32 +401,62 @@ class MyForm extends React.Component {
                 What is your current level of experience with programming? *
               </label>
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="beginner" onChange={this.handleListChange} /> I'm
-                a total beginner, I don't know anything about it
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="beginner"
+                  onChange={this.handleListChange}
+                />{" "}
+                I'm a total beginner, I don't know anything about it
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="html_css" onChange={this.handleListChange} />{" "}
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="html_css"
+                  onChange={this.handleListChange}
+                />{" "}
                 I've tried some HTML or CSS before
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="javascript" onChange={this.handleListChange} />{" "}
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="javascript"
+                  onChange={this.handleListChange}
+                />{" "}
                 I've tried some Javascript before
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="python" onChange={this.handleListChange} /> I've
-                done a few lessons of Python
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="python"
+                  onChange={this.handleListChange}
+                />{" "}
+                I've done a few lessons of Python
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="website" onChange={this.handleListChange} /> I've
-                built a website before
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="website"
+                  onChange={this.handleListChange}
+                />{" "}
+                I've built a website before
               </label>
               <br />
               <label className="checkbox">
-                <input type="checkbox" name="experience" value="professional" onChange={this.handleListChange} />{" "}
+                <input
+                  type="checkbox"
+                  name="experience"
+                  value="professional"
+                  onChange={this.handleListChange}
+                />{" "}
                 I work as a programmer
               </label>
               {errors.experience && (
@@ -442,35 +498,59 @@ class MyForm extends React.Component {
                 What is your current working status? *
               </label>
               <label className="radio">
-                <input type="radio" name="working_status" value="unemployed" onChange={this.handleChange} />{" "}
+                <input
+                  type="radio"
+                  name="working_status"
+                  value="unemployed"
+                  onChange={this.handleChange}
+                />{" "}
                 I am unemployed
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="working_status" value="student" onChange={this.handleChange} /> I
-                am a student
+                <input
+                  type="radio"
+                  name="working_status"
+                  value="student"
+                  onChange={this.handleChange}
+                />{" "}
+                I am a student
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="working_status" value="student" onChange={this.handleChange} /> I
-                am retired
+                <input
+                  type="radio"
+                  name="working_status"
+                  value="student"
+                  onChange={this.handleChange}
+                />{" "}
+                I am retired
               </label>
               <br />
               <label className="radio">
-                <input type="radio" name="working_status" value="other"onChange={this.handleChange}  /> Other
+                <input
+                  type="radio"
+                  name="working_status"
+                  value="other"
+                  onChange={this.handleChange}
+                />{" "}
+                Other
               </label>
-              { formData.working_status && formData.working_status === "other" &&
-                <div className="control">
-                  <input
-                    maxLength="50"
-                    className={errors.companyName ? "input is-danger" : "input"}
-                    name="company_name"
-                    type="text"
-                    placeholder="Name of the company you work for"
-                    onChange={this.handleChange}
-                  />
-                </div>
-              }
+              {formData.working_status &&
+                formData.working_status === "other" && (
+                  <div className="control">
+                    <input
+                      maxLength="50"
+                      className={
+                        errors.companyName ? "input is-danger" : "input"
+                      }
+                      name="company_name"
+                      type="text"
+                      placeholder="Name of the company you work for"
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                )}
               {errors.workingStatus && (
                 <p className="help is-danger">
                   Please select the option that best applies to your current
@@ -551,7 +631,13 @@ class MyForm extends React.Component {
                 workshop acceptance email.
               </p>
               <label className="radio">
-                <input type="radio" name="financial_help" value="true" onChange={this.handleChange} /> Yes
+                <input
+                  type="radio"
+                  name="financial_help"
+                  value="true"
+                  onChange={this.handleChange}
+                />{" "}
+                Yes
               </label>
               <br />
               <label className="radio">
@@ -566,54 +652,66 @@ class MyForm extends React.Component {
               </label>
             </div>
           </div>
-          { formData.financial_help && formData.financial_help === "true" && 
-            <div className="field">
-              <div className="control">
-                <label className="label" htmlFor="financial_help_notes">
-                  Please, explain why you need the financial help
+          {formData.financial_help &&
+            formData.financial_help === "true" && (
+              <div className="field">
+                <div className="control">
+                  <label className="label" htmlFor="financial_help_notes">
+                    Please, explain why you need the financial help
+                  </label>
+                  <div className="control">
+                    <textarea
+                      maxLength="250"
+                      className={
+                        errors.financialHelpNotes
+                          ? "textarea is-danger"
+                          : "textarea"
+                      }
+                      name="financial_help_notes"
+                      placeholder=""
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  {errors.financialHelpNotes && (
+                    <p className="help is-danger">
+                      This field is required if you said you needed financial
+                      aid
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          {formData.financial_help &&
+            formData.financial_help === "true" && (
+              <div className="field">
+                <label className="label" htmlFor="financial_help_amount">
+                  How much money would you need?
                 </label>
                 <div className="control">
-                  <textarea
-                    maxLength="250"
-                    className={
-                      errors.financialHelpNotes
-                        ? "textarea is-danger"
-                        : "textarea"
-                    }
-                    name="financial_help_notes"
-                    placeholder=""
+                  <input
+                    maxLength="70"
+                    className="input"
+                    name="financial_help_amount"
+                    type="text"
                     onChange={this.handleChange}
                   />
                 </div>
-                {errors.financialHelpNotes && (
-                  <p className="help is-danger">
-                    This field is required if you said you needed financial aid
-                  </p>
-                )}
               </div>
-            </div>
-          }
-          { formData.financial_help && formData.financial_help === "true" && 
-            <div className="field">
-              <label className="label" htmlFor="financial_help_amount">
-                How much money would you need?
-              </label>
-              <div className="control">
-                <input
-                  maxLength="70"
-                  className="input"
-                  name="financial_help_amount"
-                  type="text"
-                  onChange={this.handleChange}
-                />
-              </div>
-            </div>
-          }
+            )}
           <div className="field">
             <div className="control">
               <label className="checkbox">
-                <input type="checkbox" name="coc" value="accept" onChange={this.handleCocChange} />
-                I've read and understood the Code of Conduct for the workshop *
+                <input
+                  type="checkbox"
+                  name="coc"
+                  value="accept"
+                  onChange={this.handleCocChange}
+                />
+                I've read and understood the{" "}
+                <a href="/coc" className="emphasis">
+                  Code of Conduct
+                </a>{" "}
+                for the workshop *
               </label>
               {errors.coc && (
                 <p className="help is-danger">
@@ -635,8 +733,9 @@ class MyForm extends React.Component {
           )}
           {submitError && (
             <h5 className="subtitle is-5 is-failure">
-              Sorry, there was an error while submitting your registration. Please,
-              try later or contact us on our <a href="mailto: pylondiniumgirls@gmail.com">email</a>.
+              Sorry, there was an error while submitting your registration.
+              Please, try later or contact us on our{" "}
+              <a href="mailto: pylondiniumgirls@gmail.com">email</a>.
             </h5>
           )}
         </form>
