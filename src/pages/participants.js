@@ -184,10 +184,10 @@ class MyForm extends React.Component {
       try {
         await axios.post(url, request.data);
         navigate("/form-submitted");
-      } catch(error) {
+      } catch (error) {
         this.setState({ submitError: true });
       }
-      this.setState({ errors: {}});
+      this.setState({ errors: {} });
     } else {
       this.setState({ errors: request.errors });
     }
@@ -730,7 +730,13 @@ class MyForm extends React.Component {
             <h5 className="subtitle is-5 is-failure">
               Sorry, there was an error while submitting your registration.
               Please, try later or contact us on our{" "}
-              <a className="is-failure emphasis" href="mailto: pylondiniumgirls@gmail.com">email</a>.
+              <a
+                className="is-failure emphasis"
+                href="mailto: pylondiniumgirls@gmail.com"
+              >
+                email
+              </a>
+              .
             </h5>
           )}
         </form>
