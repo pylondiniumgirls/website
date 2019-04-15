@@ -136,3 +136,11 @@ img {
         border-radius: 50%;
     }
 }
+
+.is-success {
+    color: $success;
+}
+
+.is-failure {
+    color: $failure;
+}
