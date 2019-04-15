@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { FaTwitter } from "react-icons/fa";
 import { navigate } from "gatsby";
 
@@ -173,26 +174,19 @@ class MyForm extends React.Component {
     this.setState({ form: form });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
     let request = new Request(this.state.form);
 
     if (request.isValid()) {
       let url = process.env.GATSBY_URL;
 
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", url, true);
-      xhr.withCredentials = true;
-      xhr.send(JSON.stringify(request.data));
-
-      xhr.onload = _ => {
-        if (xhr.status === 200) {
-          navigate("/form-submitted");
-        } else {
-          this.setState({ submitError: true });
-        }
-      };
-      xhr.onerror = _ => this.setState({ submitError: true });
+      try {
+        await axios.post(url, request.data);
+        navigate("/form-submitted");
+      } catch(error) {
+        this.setState({ submitError: true });
+      }
     } else {
       this.setState({ errors: request.errors });
     }
