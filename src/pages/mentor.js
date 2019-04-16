@@ -11,6 +11,7 @@ class Request {
 
   constructor(form) {
     this.formData = {
+      type: "mentor",
       first_name: "",
       last_name: "",
       email: "",
