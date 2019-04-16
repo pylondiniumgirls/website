@@ -8,9 +8,6 @@ export default () => (
   <div>
     <Helmet />
     <Navbar />
-    <section className="section">
-      <h1 className="title has-text-centered">Participant registration</h1>
-    </section>
     <section className="hero is-primary is-bold is-medium">
       <div className="hero-body">
         <div className="container">
