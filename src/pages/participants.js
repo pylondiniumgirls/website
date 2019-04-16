@@ -216,7 +216,7 @@ class MyForm extends React.Component {
               />
               {errors.firstName && (
                 <p className="help is-danger">
-                  Invalid first name: the first name can only have letters
+                  Invalid first name: first name can only contain letters
                 </p>
               )}
             </div>
@@ -235,7 +235,7 @@ class MyForm extends React.Component {
               />
               {errors.lastName && (
                 <p className="help is-danger">
-                  Invalid last name: the last name can only have letters
+                  Invalid last name: last name can only contain letters
                 </p>
               )}
             </div>
@@ -309,7 +309,7 @@ class MyForm extends React.Component {
                   </div>
                   {errors.legalGuardianFirstName && (
                     <p className="help is-danger">
-                      Invalid first name: the first name can only have letters
+                      Invalid first name: first name can only contain letters
                     </p>
                   )}
                   <div className="control">
@@ -328,7 +328,7 @@ class MyForm extends React.Component {
                   </div>
                   {errors.legalGuardianLastName && (
                     <p className="help is-danger">
-                      Invalid last name: the last name can only have letters
+                      Invalid last name: last name can only contain letters
                     </p>
                   )}
                   <div className="control">
