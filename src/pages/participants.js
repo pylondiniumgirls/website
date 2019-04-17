@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { FaTwitter } from "react-icons/fa";
 import { navigate } from "gatsby";
 
 import Helmet from "../components/helmet";
