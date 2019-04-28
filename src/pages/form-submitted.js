@@ -15,7 +15,7 @@ export default () => (
             Thank you for registering!
           </h1>
           <h3 className="subtitle is-3 has-text-centered">
-            You will receive an answer by the end of May.
+            We will let you know whether you have been admitted by the end of May.
           </h3>
           <div className="buttons is-centered">
             <div className="button is-medium is-link is-in-hero">
