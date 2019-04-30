@@ -130,7 +130,9 @@ class MyForm extends React.Component {
     this.state = {
       form: {},
       errors: {},
-      submitError: false
+      submitError: false,
+      disableSubmission: false,
+      submitText: "Submit application"
     };
   }
 
@@ -175,6 +177,11 @@ class MyForm extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+
+    this.setState({
+      disableSubmission: true,
+      submitText: "Submitting..."
+    });
     let request = new Request(this.state.form);
 
     if (request.isValid()) {
@@ -190,6 +197,11 @@ class MyForm extends React.Component {
     } else {
       this.setState({ errors: request.errors });
     }
+
+    this.setState({
+      disableSubmission: false,
+      submitText: "Submit application"
+    });
   };
 
   render() {
@@ -716,7 +728,12 @@ class MyForm extends React.Component {
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link">Submit application</button>
+              <button
+                className="button is-link"
+                disabled={this.state.disableSubmission}
+              >
+                {this.state.submitText}
+              </button>
             </div>
           </div>
           {hasErrors && (
